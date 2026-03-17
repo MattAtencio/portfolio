@@ -1,0 +1,74 @@
+"use client"
+
+import { motion } from "framer-motion"
+import { heroReveal, staggerContainer, staggerChild } from "@/lib/design-tokens"
+import { ArrowDown, Mail } from "lucide-react"
+import { buttonVariants } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+
+export function Hero() {
+  return (
+    <section className="relative flex min-h-[90vh] items-center justify-center px-6">
+      <motion.div
+        className="mx-auto max-w-3xl text-center"
+        variants={staggerContainer}
+        initial="hidden"
+        animate="visible"
+      >
+        <motion.p
+          variants={heroReveal}
+          className="mb-4 text-sm font-medium uppercase tracking-widest text-primary"
+        >
+          Engineering Leader &middot; Solutions Architect &middot; MBA
+        </motion.p>
+
+        <motion.h1
+          variants={heroReveal}
+          className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+        >
+          Matt Atencio
+        </motion.h1>
+
+        <motion.p
+          variants={heroReveal}
+          className="mt-6 text-lg leading-relaxed text-muted-foreground sm:text-xl"
+        >
+          Building secure, scalable platforms that drive business outcomes in
+          regulated industries. 12+ years turning complex integration challenges
+          into reliable systems serving millions.
+        </motion.p>
+
+        <motion.div
+          variants={staggerChild}
+          className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+        >
+          <a
+            href="#work"
+            className={cn(buttonVariants({ size: "lg" }), "min-w-[160px]")}
+          >
+            View My Work
+          </a>
+          <a
+            href="#contact"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "lg" }),
+              "min-w-[160px]"
+            )}
+          >
+            <Mail className="mr-2 h-4 w-4" />
+            Get in Touch
+          </a>
+        </motion.div>
+
+        <motion.div variants={staggerChild} className="mt-16">
+          <a
+            href="#about"
+            className="inline-flex animate-bounce text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <ArrowDown className="h-5 w-5" />
+          </a>
+        </motion.div>
+      </motion.div>
+    </section>
+  )
+}
