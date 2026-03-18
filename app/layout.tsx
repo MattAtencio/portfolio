@@ -1,13 +1,19 @@
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter, DM_Sans } from "next/font/google"
 import { Providers } from "./providers"
 import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import "./globals.css"
 
 const inter = Inter({
+  variable: "--font-body",
+  subsets: ["latin"],
+})
+
+const dmSans = DM_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 })
 
 export const metadata: Metadata = {
@@ -58,7 +64,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} antialiased`}>
+      <body className={`${dmSans.variable} ${inter.variable} antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

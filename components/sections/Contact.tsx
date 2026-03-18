@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils"
 
 export function Contact() {
   return (
-    <Section id="contact" title="Get in Touch" className="bg-muted/30">
+    <Section id="contact" title="Get in Touch">
       <motion.div variants={staggerChild} className="max-w-2xl">
         <p className="mb-2 text-base leading-relaxed text-muted-foreground">
           I&apos;m open to engineering leadership opportunities at post-Series B
