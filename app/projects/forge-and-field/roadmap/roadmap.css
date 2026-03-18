@@ -1,0 +1,349 @@
+/* Forge & Field Roadmap — scoped medieval theme */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap');
+
+.forge-theme {
+  --iron: #1a1a1f;
+  --forge: #0f0f13;
+  --ember: #c8622a;
+  --gold: #c9963a;
+  --gold-light: #e8b94a;
+  --steel: #7a8494;
+  --parchment: #e8dcc8;
+  --parchment-dim: #b8a98a;
+  --glow: rgba(200,98,42,0.15);
+
+  background-color: var(--forge);
+  color: var(--parchment);
+  font-family: 'Crimson Pro', Georgia, serif;
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(200,98,42,0.12) 0%, transparent 60%),
+    repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(255,255,255,0.012) 60px, rgba(255,255,255,0.012) 61px),
+    repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(255,255,255,0.008) 60px, rgba(255,255,255,0.008) 61px);
+}
+
+/* ── HEADER ── */
+.forge-header {
+  text-align: center;
+  padding: 6rem 2rem 2rem;
+  border-bottom: 1px solid rgba(201,150,58,0.25);
+  position: relative;
+}
+
+.forge-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.forge-game-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: var(--ember);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+
+.forge-h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  color: var(--gold-light);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+
+.forge-subtitle {
+  font-size: 0.95rem;
+  color: var(--steel);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.forge-back-link {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--steel);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.forge-back-link:hover {
+  color: var(--gold);
+}
+
+/* ── MAIN ── */
+.forge-main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+}
+
+/* ── STATS BAR ── */
+.forge-stats-bar {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1.5rem 2rem;
+  background: rgba(201,150,58,0.05);
+  border: 1px solid rgba(201,150,58,0.15);
+  border-radius: 3px;
+  margin-bottom: 2.5rem;
+}
+
+.forge-stat {
+  text-align: center;
+}
+
+.forge-stat-num {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  color: var(--gold-light);
+  line-height: 1;
+}
+
+.forge-stat-label {
+  font-size: 0.7rem;
+  color: var(--steel);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 0.2rem;
+}
+
+/* ── LEGEND ── */
+.forge-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  padding: 1rem 1.2rem;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(201,150,58,0.1);
+  border-radius: 3px;
+  margin-bottom: 2.5rem;
+}
+
+.forge-legend-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--steel);
+}
+
+.forge-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.forge-legend-dot.high { background: var(--ember); }
+.forge-legend-dot.medium { background: var(--gold); }
+.forge-legend-dot.low { background: var(--steel); }
+
+/* ── CATEGORY ── */
+.forge-category {
+  margin-bottom: 2.8rem;
+}
+
+.forge-category-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(201,150,58,0.18);
+}
+
+.forge-category-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.forge-category-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.forge-category-count {
+  margin-left: auto;
+  font-size: 0.72rem;
+  color: var(--steel);
+  letter-spacing: 0.05em;
+}
+
+/* ── TASK CARD ── */
+.forge-task {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 1.1rem;
+  margin-bottom: 0.6rem;
+  background: rgba(255,255,255,0.032);
+  border: 1px solid rgba(201,150,58,0.1);
+  border-left: 3px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.2s, border-left-color 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.forge-task:hover {
+  background: rgba(200,98,42,0.07);
+  border-left-color: var(--ember);
+}
+
+.forge-task.done {
+  opacity: 0.45;
+  border-left-color: rgba(201,150,58,0.4);
+}
+
+/* ── CHECKBOX ── */
+.forge-checkbox {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  border: 1.5px solid rgba(201,150,58,0.4);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.forge-checkbox.checked {
+  background: rgba(201,150,58,0.3);
+  border-color: var(--gold);
+}
+
+.forge-checkbox.checked span {
+  font-size: 11px;
+  color: var(--gold-light);
+  line-height: 1;
+}
+
+/* ── PRIORITY BAR ── */
+.forge-priority {
+  flex-shrink: 0;
+  width: 6px;
+  border-radius: 3px;
+  align-self: stretch;
+}
+
+.forge-p-high { background: linear-gradient(to bottom, #c8622a, rgba(200,98,42,0.3)); }
+.forge-p-medium { background: linear-gradient(to bottom, #c9963a, rgba(201,150,58,0.3)); }
+.forge-p-low { background: linear-gradient(to bottom, #4a5568, rgba(74,85,104,0.3)); }
+
+/* ── TASK BODY ── */
+.forge-task-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.forge-task-title {
+  font-size: 0.98rem;
+  color: var(--parchment);
+  font-weight: 400;
+  line-height: 1.35;
+  margin-bottom: 0.2rem;
+}
+
+.forge-strikethrough {
+  text-decoration: line-through;
+  text-decoration-color: var(--steel);
+}
+
+.forge-task-detail {
+  font-size: 0.83rem;
+  color: var(--parchment-dim);
+  font-style: italic;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── TAGS ── */
+.forge-task-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.45rem;
+}
+
+.forge-tag {
+  font-size: 0.66rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: 'Cinzel', serif;
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+  font-style: normal;
+}
+
+.forge-tag-ux      { background: rgba(88,130,190,0.15); color: #7ab0e8; border: 1px solid rgba(88,130,190,0.25); }
+.forge-tag-feature { background: rgba(200,98,42,0.15);  color: #e89060; border: 1px solid rgba(200,98,42,0.25); }
+.forge-tag-system  { background: rgba(100,170,130,0.12);color: #80c8a0; border: 1px solid rgba(100,170,130,0.22); }
+.forge-tag-research{ background: rgba(180,100,200,0.12);color: #c880e8; border: 1px solid rgba(180,100,200,0.22); }
+.forge-tag-ai      { background: rgba(220,180,60,0.12); color: #e8c850; border: 1px solid rgba(220,180,60,0.22); }
+.forge-tag-design  { background: rgba(200,80,100,0.12); color: #e87090; border: 1px solid rgba(200,80,100,0.22); }
+.forge-tag-bug     { background: rgba(220,60,60,0.12);  color: #e87070; border: 1px solid rgba(220,60,60,0.22); }
+
+/* ── QUESTION NOTE ── */
+.forge-question {
+  display: block;
+  background: rgba(180,100,200,0.07);
+  border: 1px solid rgba(180,100,200,0.2);
+  border-left: 3px solid rgba(180,100,200,0.5);
+  border-radius: 3px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.87rem;
+  color: #c880e8;
+  font-style: italic;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.forge-question:hover {
+  background: rgba(180,100,200,0.12);
+}
+
+.forge-question.done {
+  opacity: 0.45;
+}
+
+.forge-question strong {
+  font-style: normal;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #d090f8;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.forge-question-body {
+  display: block;
+  font-size: 0.8rem;
+  color: rgba(200,128,232,0.7);
+  margin-top: 0.3rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

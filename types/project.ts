@@ -11,6 +11,7 @@ export interface Project {
   techStack: string[]
   liveUrl?: string
   repoUrl?: string
+  roadmapUrl?: string
   images: {
     thumbnail: string
     screenshots: string[]
