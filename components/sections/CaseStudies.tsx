@@ -13,7 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { ArrowRight, ExternalLink, Lock } from "lucide-react"
+import { ArrowRight, Lock } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 
@@ -102,10 +102,8 @@ export function CaseStudies() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {games.map((game) => (
             <motion.div key={game.slug} variants={staggerChild}>
-              <a
-                href={game.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href={`/projects/${game.slug}`}
                 className="group block"
               >
                 <Card className="transition-all duration-300 hover:border-primary/30 hover:shadow-md">
@@ -114,14 +112,14 @@ export function CaseStudies() {
                       <h4 className="font-semibold text-foreground transition-colors group-hover:text-primary">
                         {game.title}
                       </h4>
-                      <ExternalLink className="h-3.5 w-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                      <ArrowRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
                     </div>
                     <p className="mt-1 text-sm text-muted-foreground">
                       {game.tagline}
                     </p>
                   </CardContent>
                 </Card>
-              </a>
+              </Link>
             </motion.div>
           ))}
         </div>
