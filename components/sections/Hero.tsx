@@ -8,7 +8,9 @@ import { cn } from "@/lib/utils"
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-[90vh] items-center justify-center px-6">
+    <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden px-6">
+      {/* Subtle radial gradient backdrop */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.12),transparent_70%)] dark:bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(129,140,248,0.15),transparent_70%)]" />
       <motion.div
         className="mx-auto max-w-3xl text-center"
         variants={staggerContainer}

@@ -88,6 +88,7 @@ export function GitHub() {
       id="github"
       title="Open Source"
       subtitle="Building in public and contributing to the community"
+      className="bg-muted/30"
     >
       {loading ? (
         <div className="space-y-4">

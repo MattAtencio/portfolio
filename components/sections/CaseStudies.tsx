@@ -5,7 +5,6 @@ import { staggerChild } from "@/lib/design-tokens"
 import { Section } from "@/components/layout/Section"
 import { getFeaturedProjects, getGameProjects } from "@/data/projects"
 import { Badge } from "@/components/ui/badge"
-import { buttonVariants } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -15,7 +14,6 @@ import {
 } from "@/components/ui/card"
 import { ArrowRight, Lock } from "lucide-react"
 import Link from "next/link"
-import { cn } from "@/lib/utils"
 
 export function CaseStudies() {
   const featured = getFeaturedProjects()
@@ -99,7 +97,7 @@ export function CaseStudies() {
           shipping fast, iterating publicly, and exploring new interaction
           patterns.
         </p>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {games.map((game) => (
             <motion.div key={game.slug} variants={staggerChild}>
               <Link
@@ -125,16 +123,6 @@ export function CaseStudies() {
         </div>
       </motion.div>
 
-      {/* See all link */}
-      <motion.div variants={staggerChild} className="mt-8 text-center">
-        <Link
-          href="/projects/fitops"
-          className={cn(buttonVariants({ variant: "outline" }))}
-        >
-          View Detailed Case Studies
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </Link>
-      </motion.div>
     </Section>
   )
 }
