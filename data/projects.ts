@@ -208,6 +208,28 @@ This work spans the full integration lifecycle — from vendor discovery and arc
     featured: false,
   },
   {
+    slug: "lexle",
+    title: "Lexle",
+    tagline: "Daily word puzzle in the style of Wordle",
+    description: `Lexle is a daily word-guessing game inspired by Wordle. Players have six attempts to guess a hidden five-letter word, with color-coded feedback after each guess indicating correct letters and positions.`,
+    category: "games",
+    status: "active",
+    techStack: ["Next.js", "JavaScript", "PWA", "CSS Modules"],
+    liveUrl: "https://lexle.mattatencio.com",
+    images: {
+      thumbnail: "/images/projects/lexle-thumb.png",
+      screenshots: [],
+    },
+    highlights: [
+      "Daily puzzle rotation with seeded word selection",
+      "Color-coded letter feedback with keyboard tracking",
+      "Installable PWA with offline support",
+    ],
+    isPublic: true,
+    startDate: "2025-03",
+    featured: false,
+  },
+  {
     slug: "forge-and-field",
     title: "Forge & Field",
     tagline: "Craft gear and send heroes on quests",
