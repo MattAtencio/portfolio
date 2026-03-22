@@ -21,4 +21,5 @@ export interface Project {
   isPublic: boolean
   startDate: string
   featured: boolean
+  hasCaseStudy?: boolean
 }

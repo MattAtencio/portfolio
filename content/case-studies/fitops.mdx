@@ -1,0 +1,147 @@
+import { CaseStudyLayout } from "@/components/case-study/CaseStudyLayout"
+import { CaseStudySection } from "@/components/case-study/Section"
+import { FeatureShowcase } from "@/components/case-study/FeatureShowcase"
+import { DeepDive } from "@/components/case-study/DeepDive"
+import { getProjectBySlug } from "@/data/projects"
+
+export default function FitOpsCaseStudy() {
+  const project = getProjectBySlug("fitops")
+  if (!project) return null
+
+  return (
+    <CaseStudyLayout project={project}>
+      <CaseStudySection title="The Problem">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          Fitness studio owners juggle 4–6 disconnected tools daily: MindBody for scheduling,
+          spreadsheets for payroll, email for client communication, and manual workflows for
+          everything in between. Each tool switch costs context and time. The result is missed
+          follow-ups, inconsistent client experiences, and operators spending evenings on admin
+          instead of growing their business.
+        </p>
+        <p className="text-base leading-relaxed text-muted-foreground">
+          Existing solutions either target enterprise gym chains (too complex, too expensive) or
+          offer basic booking widgets (too shallow). There was no middle-ground platform purpose-built
+          for boutique studio operators who need scheduling, client lifecycle management, staff
+          payroll, and revenue analytics in a single view.
+        </p>
+      </CaseStudySection>
+
+      <CaseStudySection title="The Approach">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          FitOps was designed around two principles: <strong>role-based simplicity</strong> — every
+          user sees only what they need — and <strong>automated client journeys</strong> — the
+          system handles follow-ups so the operator doesn&apos;t have to.
+        </p>
+        <p className="text-base leading-relaxed text-muted-foreground">
+          The architecture uses Next.js 15 with server components for fast initial loads, Prisma +
+          PostgreSQL for the data layer, and Auth.js for authentication with four distinct role
+          tiers. The MindBody API integration uses rate-limited, cached requests with Zod schema
+          validation to handle the notoriously inconsistent API responses.
+        </p>
+        <p className="text-base leading-relaxed text-muted-foreground">
+          Development followed an AI-assisted workflow with 7 specialized Claude agents handling
+          spec writing, implementation, QA, peer review, and architecture decisions — an early
+          experiment in what would later become the Claude Framework.
+        </p>
+      </CaseStudySection>
+
+      <CaseStudySection title="Key Features">
+        <FeatureShowcase
+          features={[
+            {
+              title: "Role-Based Access Control",
+              description:
+                "Four role tiers (Owner, Ops Manager, Front Desk, Teacher) with server-side enforcement. Each role sees a tailored dashboard — owners get revenue analytics, front desk gets check-in flows, teachers see their schedule.",
+            },
+            {
+              title: "Visual Journey Builder",
+              description:
+                "Drag-and-drop workflow editor for automated client lifecycle management. Define triggers (first visit, missed class, milestone), actions (email, SMS, tag), and conditions to create personalized retention workflows.",
+            },
+            {
+              title: "MindBody Integration",
+              description:
+                "Real-time sync with MindBody API for class schedules, client profiles, and transaction data. Rate-limited request queue with exponential backoff, response caching, and Zod validation for data integrity.",
+            },
+            {
+              title: "Revenue Analytics",
+              description:
+                "Multi-location revenue dashboards with breakdown by service type, instructor, and time period. Tracks key metrics: revenue per visit, client lifetime value, class fill rates, and retention cohorts.",
+            },
+          ]}
+        />
+      </CaseStudySection>
+
+      <CaseStudySection title="Technical Deep Dive">
+        <DeepDive title="RBAC Architecture">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            The RBAC system enforces permissions at three layers: middleware (route-level guards),
+            server components (data filtering), and API routes (action validation). Role definitions
+            are centralized in a single permissions matrix, so adding a new role or adjusting
+            permissions is a one-file change.
+          </p>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Server-side enforcement means the client never receives data the user shouldn&apos;t
+            see — not just hidden UI, but genuinely filtered at the query level. This was a
+            deliberate choice over client-side role checks, which are trivially bypassable.
+          </p>
+        </DeepDive>
+        <DeepDive title="Journey Engine">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            The journey engine processes workflows as directed acyclic graphs. Each node is a
+            trigger, condition, or action. The engine evaluates client events against active
+            journeys on a scheduled basis, queuing actions for execution.
+          </p>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Journey definitions are stored as JSON in the database, making them portable and
+            version-controllable. The visual builder serializes to this format, and journeys can
+            also be imported/exported for sharing between locations.
+          </p>
+        </DeepDive>
+        <DeepDive title="AI-Assisted Development">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            FitOps was the pilot project for what became the Claude Framework. Seven specialized
+            agents handled different phases of development: a spec agent wrote feature
+            specifications, a dev agent implemented them, a QA agent wrote tests, a review agent
+            checked code quality, and architecture/product/security agents evaluated design
+            decisions at milestones. This workflow is now formalized as reusable skills in the
+            framework.
+          </p>
+        </DeepDive>
+      </CaseStudySection>
+
+      <CaseStudySection title="Results & Learnings">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          FitOps validated that a single-developer team can build production-quality SaaS by
+          leveraging AI-assisted workflows. The RBAC system and journey engine are architecturally
+          sound enough to scale to multi-tenant without rework.
+        </p>
+        <ul className="space-y-2">
+          <li className="flex gap-3 text-base leading-relaxed text-muted-foreground">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            The AI-assisted development workflow reduced spec-to-implementation time significantly
+            and became the foundation for the Claude Framework
+          </li>
+          <li className="flex gap-3 text-base leading-relaxed text-muted-foreground">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            Server-side RBAC enforcement proved worth the extra complexity — caught two permission
+            edge cases that client-side checks would have missed
+          </li>
+          <li className="flex gap-3 text-base leading-relaxed text-muted-foreground">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            MindBody API inconsistencies taught the value of schema validation at integration
+            boundaries — Zod caught malformed responses that would have silently corrupted data
+          </li>
+        </ul>
+      </CaseStudySection>
+
+      <CaseStudySection title="Links">
+        <div className="flex gap-3">
+          <span className="rounded-md bg-muted px-3 py-1.5 text-sm text-muted-foreground">
+            Private repository — available on request
+          </span>
+        </div>
+      </CaseStudySection>
+    </CaseStudyLayout>
+  )
+}

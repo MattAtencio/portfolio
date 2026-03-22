@@ -6,7 +6,7 @@ import type { Project } from "@/types/project"
 import { Badge } from "@/components/ui/badge"
 import { buttonVariants } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { ArrowLeft, ExternalLink, Github, Lock, Map } from "lucide-react"
+import { ArrowLeft, BookOpen, ExternalLink, Github, Lock, Map } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 
@@ -83,6 +83,15 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
             >
               <Map className="mr-2 h-4 w-4" />
               Roadmap
+            </Link>
+          )}
+          {project.hasCaseStudy && (
+            <Link
+              href={`/projects/${project.slug}/case-study`}
+              className={cn(buttonVariants({ variant: "outline" }))}
+            >
+              <BookOpen className="mr-2 h-4 w-4" />
+              Case Study
             </Link>
           )}
         </motion.div>
