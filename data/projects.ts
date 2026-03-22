@@ -6,11 +6,11 @@ export const projects: Project[] = [
     title: "FitOps Studio",
     tagline:
       "Full-stack SaaS platform for fitness studio operations management",
-    description: `FitOps is a comprehensive admin dashboard built for fitness studio owners and operators. It integrates with the MindBody API to provide real-time class scheduling, client management, revenue analytics, staff payroll, and automated client journey workflows.
+    description: `FitOps is a comprehensive SaaS platform for fitness studio operations. It integrates with the MindBody API to provide real-time class scheduling, client management, revenue analytics, staff payroll, and automated client journey workflows.
 
-The platform features role-based access control (Owner, Ops Manager, Front Desk, Teacher), a visual journey builder for automated client communications, and a multi-location management system.
+The platform features role-based access control (Owner, Ops Manager, Front Desk, Teacher), a visual journey builder, multi-location dashboard with KPI comparison, an Education Portal with certificates and workshop tracking, a Communications Inbox for unified messaging, task management with Kanban boards, referral tracking, kiosk check-in, and configurable analytics.
 
-Built with a sophisticated AI-assisted development workflow including specialized agents for spec writing, development, QA, peer review, and architecture decisions.`,
+Developed across 19+ sprints with an AI-assisted workflow including specialized agents for spec writing, development, QA, peer review, and architecture decisions.`,
     category: "featured",
     status: "active",
     techStack: [
@@ -22,6 +22,8 @@ Built with a sophisticated AI-assisted development workflow including specialize
       "PostgreSQL",
       "Auth.js",
       "Framer Motion",
+      "Vercel",
+      "Playwright",
     ],
     images: {
       thumbnail: "/images/projects/fitops-thumb.png",
@@ -29,15 +31,16 @@ Built with a sophisticated AI-assisted development workflow including specialize
     },
     highlights: [
       "Designed RBAC system with 4 role tiers and server-side enforcement",
-      "Built visual journey engine for automated client lifecycle management",
-      "Integrated MindBody API with rate limiting, caching, and Zod validation",
-      "Implemented AI-assisted development workflow with 7 specialized agents",
+      "Built visual journey engine with automated client lifecycle workflows",
+      "Shipped Education Portal with certificates, workshops, and teaching practice tracking",
+      "Built Communications Inbox, task management Kanban, and multi-location dashboard",
     ],
     businessContext:
       "Fitness studios rely on fragmented tools for scheduling, payments, and client communication. FitOps consolidates these into a single platform, reducing operational overhead and improving client retention.",
     isPublic: false,
     startDate: "2025-03",
     featured: true,
+    hasCaseStudy: true,
   },
   {
     slug: "enterprise-integration",
@@ -253,31 +256,37 @@ This work spans the full integration lifecycle — from vendor discovery and arc
     featured: false,
   },
   {
-    slug: "crypto-prediction",
-    title: "Crypto Prediction Engine",
-    tagline: "ML-powered cryptocurrency prediction with dual investment strategy",
-    description: `A machine learning application that combines Bitcoin holdings analysis with altcoin trading predictions. Features backtesting, portfolio tracking, and interactive dashboards.`,
+    slug: "signal-forge",
+    title: "Signal Forge",
+    tagline: "AI-powered crypto prediction and portfolio management platform",
+    description: `Signal Forge is a full-stack cryptocurrency investment platform combining ML-driven price predictions with portfolio management and automated trading signals. Features a real-time market data pipeline from CoinGecko, XGBoost prediction models with walk-forward backtesting, a trading engine with smart exits, portfolio tracking with rebalancing, and a notifications system with pluggable channels.
+
+Built as a multi-service architecture with a Python/FastAPI backend, React frontend dashboard, and Streamlit analytics.`,
     category: "tools",
     status: "active",
     techStack: [
-      "Python",
+      "Python 3.12",
       "FastAPI",
-      "React",
+      "React 18",
+      "XGBoost",
+      "SQLAlchemy",
+      "Docker Compose",
       "Streamlit",
-      "Scikit-learn",
-      "Pandas",
+      "Chart.js",
+      "CoinGecko API",
     ],
     images: {
-      thumbnail: "/images/projects/crypto-thumb.png",
+      thumbnail: "/images/projects/signal-forge-thumb.png",
       screenshots: [],
     },
     highlights: [
-      "ML prediction models with backtesting validation",
-      "Dual strategy: BTC holdings + altcoin trading",
-      "Interactive Streamlit dashboards for analysis",
+      "Walk-forward backtesting with XGBoost prediction models — no lookahead bias",
+      "Real-time CoinGecko market data pipeline with rate limiting and caching",
+      "Trading engine with signal generation, smart exits, and position management",
+      "Portfolio tracker with performance metrics, allocation analysis, and rebalancing",
     ],
     businessContext:
-      "Exploring quantitative approaches to cryptocurrency investment with risk-managed dual strategies.",
+      "Quantitative approach to cryptocurrency investment with risk-managed strategies, separating BTC long-term holds from altcoin swing trades.",
     isPublic: false,
     startDate: "2025-05",
     featured: false,
@@ -301,6 +310,73 @@ This work spans the full integration lifecycle — from vendor discovery and arc
     ],
     isPublic: false,
     startDate: "2024-06",
+    featured: false,
+  },
+  {
+    slug: "vault",
+    title: "Vault",
+    tagline: "Personal finance PWA with AI insights and bank integration",
+    description: `Vault is a personal finance application that aggregates bank accounts via Plaid, categorizes transactions using Claude AI, and delivers weekly financial insights. Built as a Turborepo monorepo with an Express 5 API backend and React 19 PWA frontend.
+
+Features include automated transaction sync, AI-powered categorization, push notifications, and gamified financial goal tracking.`,
+    category: "tools",
+    status: "active",
+    techStack: [
+      "React 19",
+      "TypeScript",
+      "Express 5",
+      "Prisma",
+      "PostgreSQL",
+      "Redis",
+      "Plaid API",
+      "Claude API",
+      "Tailwind CSS",
+      "Turborepo",
+    ],
+    images: {
+      thumbnail: "/images/projects/vault-thumb.png",
+      screenshots: [],
+    },
+    highlights: [
+      "Plaid integration for bank account aggregation and transaction sync",
+      "Claude AI-powered transaction categorization and weekly financial insights",
+      "Turborepo monorepo with Express 5 API and React 19 PWA",
+      "BullMQ job queue with Redis for background processing",
+    ],
+    businessContext:
+      "Consolidates personal finance data from multiple bank accounts with AI-driven insights to improve financial awareness and decision-making.",
+    isPublic: false,
+    startDate: "2026-02",
+    featured: false,
+  },
+  {
+    slug: "homelab-dashboard",
+    title: "Homelab Dashboard",
+    tagline: "Hardware inventory and network topology for a home server lab",
+    description: `A self-hosted dashboard for managing homelab hardware inventory — network diagram, device tree, and workbench views. Deployed via Docker Compose to a Raspberry Pi with remote access through Cloudflare Tunnel.
+
+Built with React and Express, using LowDB for lightweight JSON-file persistence.`,
+    category: "tools",
+    status: "active",
+    techStack: [
+      "React 18",
+      "Vite",
+      "Express",
+      "LowDB",
+      "Docker",
+      "Cloudflare Tunnel",
+    ],
+    images: {
+      thumbnail: "/images/projects/homelab-thumb.png",
+      screenshots: [],
+    },
+    highlights: [
+      "Grouped network topology view with interactive device tree",
+      "Dockerized deployment to Raspberry Pi with Cloudflare Tunnel access",
+      "LowDB JSON-file persistence with seed data separation",
+    ],
+    isPublic: false,
+    startDate: "2026-02",
     featured: false,
   },
 ]
