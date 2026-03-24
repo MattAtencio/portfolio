@@ -10,7 +10,7 @@ export const projects: Project[] = [
 
 The platform features role-based access control (Owner, Ops Manager, Front Desk, Teacher), a visual journey builder, multi-location dashboard with KPI comparison, an Education Portal with certificates and workshop tracking, a Communications Inbox for unified messaging, task management with Kanban boards, referral tracking, kiosk check-in, and configurable analytics.
 
-Developed across 19+ sprints with an AI-assisted workflow including specialized agents for spec writing, development, QA, peer review, and architecture decisions.`,
+Developed across 20+ sprints with an AI-assisted workflow including specialized agents for spec writing, development, QA, peer review, and architecture decisions.`,
     category: "featured",
     status: "active",
     techStack: [
@@ -34,6 +34,7 @@ Developed across 19+ sprints with an AI-assisted workflow including specialized 
       "Built visual journey engine with automated client lifecycle workflows",
       "Shipped Education Portal with certificates, workshops, and teaching practice tracking",
       "Built Communications Inbox, task management Kanban, and multi-location dashboard",
+      "Added Education Analytics Dashboard with workshop conversion funnel tracking",
     ],
     businessContext:
       "Fitness studios rely on fragmented tools for scheduling, payments, and client communication. FitOps consolidates these into a single platform, reducing operational overhead and improving client retention.",
@@ -342,6 +343,7 @@ Features include automated transaction sync, AI-powered categorization, push not
       "Claude AI-powered transaction categorization and weekly financial insights",
       "Turborepo monorepo with Express 5 API and React 19 PWA",
       "BullMQ job queue with Redis for background processing",
+      "Financial goal tracking with CRUD, push notifications, and cash flow summaries",
     ],
     businessContext:
       "Consolidates personal finance data from multiple bank accounts with AI-driven insights to improve financial awareness and decision-making.",
@@ -377,6 +379,35 @@ Built with React and Express, using LowDB for lightweight JSON-file persistence.
     ],
     isPublic: false,
     startDate: "2026-02",
+    featured: false,
+  },
+  {
+    slug: "homelab-infra",
+    title: "Homelab Infrastructure",
+    tagline: "Infrastructure-as-code for a self-hosted home server environment",
+    description: `Infrastructure-as-code repository managing a personal homelab environment. Covers provisioning, configuration management, and service deployment for self-hosted storage and network services.
+
+Uses a phased rollout approach with security policies, automated backups, and secure remote access.`,
+    category: "tools",
+    status: "active",
+    techStack: [
+      "Terraform",
+      "Ansible",
+      "Docker Compose",
+      "Raspberry Pi",
+      "Cloudflare Tunnel",
+    ],
+    images: {
+      thumbnail: "/images/projects/homelab-infra-thumb.png",
+      screenshots: [],
+    },
+    highlights: [
+      "Phased IaC rollout for private cloud storage and network services",
+      "Automated provisioning with Terraform and Ansible",
+      "Secure remote access via tunneling with no exposed ports",
+    ],
+    isPublic: false,
+    startDate: "2026-03",
     featured: false,
   },
 ]
