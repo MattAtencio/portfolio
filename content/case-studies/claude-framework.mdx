@@ -1,0 +1,177 @@
+import { CaseStudyLayout } from "@/components/case-study/CaseStudyLayout"
+import { CaseStudySection } from "@/components/case-study/Section"
+import { FeatureShowcase } from "@/components/case-study/FeatureShowcase"
+import { DeepDive } from "@/components/case-study/DeepDive"
+import { getProjectBySlug } from "@/data/projects"
+
+export default function ClaudeFrameworkCaseStudy() {
+  const project = getProjectBySlug("claude-framework")
+  if (!project) return null
+
+  return (
+    <CaseStudyLayout project={project}>
+      <CaseStudySection title="The Problem">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          Working with Claude Code as a solo developer is powerful, but without structure it
+          devolves into ad-hoc prompting. Every session starts cold — no memory of past decisions,
+          no consistent review process, no way to enforce quality gates. You end up re-explaining
+          project context, manually running the same review checklists, and losing institutional
+          knowledge between sessions.
+        </p>
+        <p className="text-base leading-relaxed text-muted-foreground">
+          The core problem is operational: how do you make an AI coding assistant behave like a
+          full engineering team — with specialized reviewers, automated workflows, persistent
+          memory, and asynchronous communication — when you&apos;re a team of one? Existing
+          tooling didn&apos;t address this. Claude Code&apos;s skill and hook systems provide
+          primitives, but there was no opinionated framework for composing them into a repeatable
+          development workflow.
+        </p>
+      </CaseStudySection>
+
+      <CaseStudySection title="The Approach">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          The framework is structured as a global <code>~/.claude/</code> directory that layers
+          reusable skills, specialized agents, lifecycle hooks, and a communication pipeline on
+          top of Claude Code&apos;s primitives. Every project inherits the global framework and
+          can override behavior through per-project config files — JSON over code, always.
+        </p>
+        <p className="text-base leading-relaxed text-muted-foreground">
+          Skills use YAML frontmatter for metadata: <code>context: fork</code> for isolation,
+          <code>allowed-tools</code> for least-privilege access, and
+          <code>disable-model-invocation</code> to prevent accidental cost multiplication.
+          Review skills run in forked contexts so they can&apos;t pollute the main session.
+          Orchestrator skills like <code>/milestone-review</code> and <code>/gha-checkup</code> spawn
+          multiple skills in parallel.
+        </p>
+        <p className="text-base leading-relaxed text-muted-foreground">
+          The communication layer routes Claude&apos;s built-in hooks (approvals, questions,
+          notifications) through a unified dispatcher to Slack or Discord, selected per-project
+          via config. Session notes flow into an Obsidian vault, building a searchable knowledge
+          graph of every development session across all projects.
+        </p>
+      </CaseStudySection>
+
+      <CaseStudySection title="Key Features">
+        <FeatureShowcase
+          features={[
+            {
+              title: "Skill System with Frontmatter",
+              description:
+                "35+ global skills with YAML frontmatter controlling context isolation, tool restrictions, and auto-invocation. Skills range from review agents and deployment automation to game design workflows and session management. Orchestrator skills compose multiple skills in parallel.",
+            },
+            {
+              title: "Agent Orchestration",
+              description:
+                "Seven specialized review agents (security, architecture, product, UI design, business strategy, QA) evaluate projects at milestones. Each agent uses project-specific config from .claude/review-config.json. A deploy agent handles the full lifecycle from GitHub repo to production.",
+            },
+            {
+              title: "Communication Pipelines",
+              description:
+                "Unified dispatcher routes Claude Code hooks to Slack or Discord per-project. Supports approval gates with timeout polling, question threads, fire-and-forget notifications, and feedback channels with emoji-based triage. A message classifier and routing engine handle inbound items from mobile.",
+            },
+            {
+              title: "Obsidian Knowledge Graph",
+              description:
+                "Session notes, daily wraps, and decision logs flow into an Obsidian vault organized by date. The /start-day skill reads yesterday's notes for continuity. The /wrap skill captures session summaries. Over time this builds a searchable second brain of every architectural decision and debugging session.",
+            },
+          ]}
+        />
+      </CaseStudySection>
+
+      <CaseStudySection title="Technical Deep Dive">
+        <DeepDive title="Skill Architecture & Frontmatter">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Each skill lives in its own directory under <code>~/.claude/skills/</code> with a
+            <code>SKILL.md</code> file. The YAML frontmatter block controls runtime behavior:
+            <code>context: fork</code> creates an isolated context so the skill can&apos;t
+            read or modify the parent session&apos;s state. <code>allowed-tools</code> restricts
+            which tools the skill can invoke — review skills get read-only access, while
+            framework management skills get write access.
+          </p>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            The <code>/create-skill</code> meta-skill enforces these conventions: it reads
+            existing skills for style matching, applies guardrails (security review, token
+            efficiency, framework consistency), and generates the frontmatter automatically.
+            Skills can include reference files in subdirectories — the <code>/game-designer</code>
+            skill ships with 5 reference documents for different game archetypes.
+          </p>
+        </DeepDive>
+        <DeepDive title="Start-Day Orchestration">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            The <code>/start-day</code> skill demonstrates the framework&apos;s orchestration
+            pattern. It launches a monitor overlay, reads yesterday&apos;s daily notes from
+            Obsidian for continuity, then scans every repo under <code>C:/dev/</code> for
+            uncommitted changes, open PRs, recent branches, and GitHub issues to build a
+            prioritized task board.
+          </p>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            After the task board, it spawns four parallel agents: a game idea generator, a
+            workflow enhancement advisor, a tech news digest, and a productivity suggestion
+            engine. The companion <code>/end-day</code> skill reverses the process — running
+            git cleanup across repos, generating a daily wrap, and stopping the monitor. This
+            bookend pattern ensures no session starts without context or ends without a record.
+          </p>
+        </DeepDive>
+        <DeepDive title="Memory & Config System">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Memory operates at three levels. <strong>Global config</strong> in
+            <code>~/.claude/settings.json</code> defines hook routing, tool permissions, and
+            plugin settings. <strong>Per-project config</strong> in
+            <code>.claude/review-config.json</code> and <code>.claude/communication.json</code>
+            provides project-specific context to every skill — tech stack, security patterns,
+            architecture boundaries, and which communication platform to use.
+          </p>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            <strong>Persistent memory</strong> lives in <code>~/.claude/projects/</code>, where
+            Claude Code stores cross-session memory indexed by project path. Combined with
+            Obsidian session notes and ADRs in <code>~/.claude/adr/</code>, this creates a
+            layered knowledge system: structural decisions in ADRs, session context in Obsidian,
+            and behavioral preferences in memory files. The framework itself is version-controlled
+            in git with a changelog and contributing guide.
+          </p>
+        </DeepDive>
+      </CaseStudySection>
+
+      <CaseStudySection title="Results & Learnings">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          The framework now manages 10+ active projects — from SaaS platforms and crypto trading
+          tools to PWA games and homelab infrastructure. It has grown from 5 review agents to
+          35+ skills across development, deployment, design, operations, and session management,
+          all built incrementally over 10 days of active development.
+        </p>
+        <ul className="space-y-2">
+          <li className="flex gap-3 text-base leading-relaxed text-muted-foreground">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            Context isolation via <code>context: fork</code> was the single most important
+            design decision — without it, review skills would pollute the working session
+            and orchestrator skills would multiply costs unpredictably
+          </li>
+          <li className="flex gap-3 text-base leading-relaxed text-muted-foreground">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            Config over code proved essential for scaling across projects — adding a new
+            project to the framework is a JSON file, not a code change
+          </li>
+          <li className="flex gap-3 text-base leading-relaxed text-muted-foreground">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            The communication layer transformed Claude from a local tool into an asynchronous
+            collaborator — approval gates and feedback channels mean work continues while
+            away from the terminal
+          </li>
+          <li className="flex gap-3 text-base leading-relaxed text-muted-foreground">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            Building meta-tooling (skills that create skills, reviews that review the framework)
+            created a compounding effect — the framework improves itself with each session
+          </li>
+        </ul>
+      </CaseStudySection>
+
+      <CaseStudySection title="Links">
+        <div className="flex gap-3">
+          <span className="rounded-md bg-muted px-3 py-1.5 text-sm text-muted-foreground">
+            Private repository — available on request
+          </span>
+        </div>
+      </CaseStudySection>
+    </CaseStudyLayout>
+  )
+}

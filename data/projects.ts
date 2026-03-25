@@ -255,6 +255,7 @@ This work spans the full integration lifecycle — from vendor discovery and arc
     isPublic: true,
     startDate: "2025-01",
     featured: false,
+    hasCaseStudy: true,
   },
   {
     slug: "signal-forge",
@@ -409,6 +410,43 @@ Uses a phased rollout approach with security policies, automated backups, and se
     isPublic: false,
     startDate: "2026-03",
     featured: false,
+  },
+  {
+    slug: "claude-framework",
+    title: "Claude Framework",
+    tagline:
+      "Autonomous development framework turning Claude Code into a full engineering team",
+    description: `A meta-tooling framework that extends Claude Code with 35+ reusable skills, 7 specialized review agents, automated communication pipelines, and an Obsidian-backed knowledge graph. Orchestrates daily workflows from morning briefing through end-of-day wrap with parallel agent execution, Slack/Discord integration, and persistent memory across sessions.
+
+Built as a living system that evolves with each project — skills are composed, agents are dispatched in parallel, and session knowledge compounds through structured vault notes with wikilinks and frontmatter.`,
+    category: "tools",
+    status: "active",
+    techStack: [
+      "Claude Code",
+      "Python",
+      "Bash",
+      "Slack API",
+      "Discord API",
+      "Obsidian",
+      "YAML",
+      "JSON",
+    ],
+    images: {
+      thumbnail: "/images/projects/claude-framework-thumb.png",
+      screenshots: [],
+    },
+    highlights: [
+      "35+ composable skills with YAML frontmatter, context isolation, and tool restrictions",
+      "7 specialized review agents for architecture, security, product, QA, and UI/UX",
+      "Automated Slack/Discord intake pipelines with classification and GitHub routing",
+      "Obsidian knowledge graph with session notes, MOCs, and cross-project connection tracking",
+    ],
+    businessContext:
+      "Solo developer productivity multiplier — automates the overhead of managing 14+ active projects, from morning planning through deployment and daily documentation.",
+    isPublic: false,
+    startDate: "2025-03",
+    featured: true,
+    hasCaseStudy: true,
   },
 ]
 
