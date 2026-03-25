@@ -9,6 +9,8 @@ interface PageProps {
 // Map of slugs to their case study content components
 const caseStudyMap: Record<string, () => Promise<{ default: React.ComponentType }>> = {
   fitops: () => import("@/content/case-studies/fitops.mdx"),
+  "forge-and-field": () => import("@/content/case-studies/forge-and-field.mdx"),
+  "claude-framework": () => import("@/content/case-studies/claude-framework.mdx"),
 }
 
 export async function generateStaticParams() {

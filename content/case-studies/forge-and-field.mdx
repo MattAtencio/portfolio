@@ -1,0 +1,173 @@
+import { CaseStudyLayout } from "@/components/case-study/CaseStudyLayout"
+import { CaseStudySection } from "@/components/case-study/Section"
+import { FeatureShowcase } from "@/components/case-study/FeatureShowcase"
+import { DeepDive } from "@/components/case-study/DeepDive"
+import { getProjectBySlug } from "@/data/projects"
+
+export default function ForgeAndFieldCaseStudy() {
+  const project = getProjectBySlug("forge-and-field")
+  if (!project) return null
+
+  return (
+    <CaseStudyLayout project={project}>
+      <CaseStudySection title="The Problem">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          Most idle games fall into the same trap: exponential number inflation masquerading as
+          progression. Players tap a button, watch numbers climb, prestige, and repeat — with no
+          meaningful decisions between resets. The genre has stagnated around clicker mechanics that
+          reward patience over strategy.
+        </p>
+        <p className="text-base leading-relaxed text-muted-foreground">
+          I wanted to build an idle game where the &quot;idle&quot; part funds real decisions:
+          what to craft, which heroes to equip, where to send expeditions, and when to prestige.
+          The goal was a game that respects the player&apos;s time — meaningful offline progress,
+          strategic depth in combat and crafting, and a content rotation that gives returning
+          players something new each week.
+        </p>
+      </CaseStudySection>
+
+      <CaseStudySection title="The Approach">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          Forge &amp; Field is built as a mobile-first Next.js PWA using React 19 and Turbopack
+          for development. All game state lives client-side in a single reducer — no backend,
+          no accounts, no loading screens. The game saves to localStorage with versioned
+          schema migrations, so state can evolve across updates without breaking existing saves.
+        </p>
+        <p className="text-base leading-relaxed text-muted-foreground">
+          The core loop is: generate resources passively, craft weapons and armor with a rarity
+          system (Common through Epic), equip heroes, send them on expeditions through multi-region
+          world maps, resolve turn-based combat, and reinvest rewards. Layered on top are village
+          buildings, skill evolution trees, weekly rotating seasons with exclusive recipes, daily
+          quests, and a prestige system that trades progress for permanent multipliers.
+        </p>
+        <p className="text-base leading-relaxed text-muted-foreground">
+          The entire game is a static export — deployed to Cloudflare Pages with zero server
+          costs. PWA support means it installs as a native app on mobile with offline play.
+        </p>
+      </CaseStudySection>
+
+      <CaseStudySection title="Key Features">
+        <FeatureShowcase
+          features={[
+            {
+              title: "Crafting & Rarity System",
+              description:
+                "Queue-based crafting with weighted rarity rolls (Common 58%, Uncommon 25%, Rare 12%, Epic 5%). Each rarity tier applies stat multipliers to base recipes. Items have durability, levels, and equipment slots — creating a gear treadmill that drives expedition strategy.",
+            },
+            {
+              title: "Turn-Based Combat Engine",
+              description:
+                "Deterministic combat resolution with speed-based turn ordering, active and passive hero skills with cooldowns, party-wide buff auras, and defense-penetration mechanics. Combat logs are replayable turn-by-turn so players can analyze outcomes and optimize team composition.",
+            },
+            {
+              title: "Progression & Prestige",
+              description:
+                "Multi-axis progression: player level unlocks recipes and regions, hero levels unlock skill evolution tiers, village buildings provide permanent bonuses, and prestige resets trade progress for stars that buy permanent multipliers like boosted generators and starting bonuses.",
+            },
+            {
+              title: "Seasonal Events & Daily Quests",
+              description:
+                "Weekly rotating seasons (Harvest Festival, Iron Age, Golden Market) each boost a resource by 50%, unlock exclusive recipes, and offer XP-gated reward tracks. Daily quests provide short-term goals that layer on top of the longer progression arcs.",
+            },
+          ]}
+        />
+      </CaseStudySection>
+
+      <CaseStudySection title="Technical Deep Dive">
+        <DeepDive title="Game Loop & Offline Calculation">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            The game tick runs in a React context provider, dispatching resource generation
+            actions at a fixed interval. When the player returns after being offline, the
+            offline progress calculator computes elapsed time (capped at 8 hours), applies
+            per-resource generation rates with season bonus multipliers and prestige modifiers,
+            and presents a &quot;Welcome Back&quot; modal showing everything earned.
+          </p>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            All state mutations flow through a single <code>gameReducer</code> — a pure function
+            with ~60 action types covering crafting, combat resolution, expedition management,
+            hero leveling, village upgrades, and prestige. This makes save/load trivial (serialize
+            the state object) and keeps the UI as a pure projection of game state.
+          </p>
+        </DeepDive>
+        <DeepDive title="Combat Resolution System">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Combat is fully deterministic given the same inputs. Heroes and enemies are converted
+            into combatant objects with normalized stat interfaces. Each turn: build a speed-sorted
+            turn order, resolve active skills (checking cooldowns), calculate damage with defense
+            reduction (<code>max(1, atk - floor(def/2))</code>), and apply status effects. Party
+            passives like stat auras are applied once at combat start.
+          </p>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Enemy parties are generated from encounter tables with weighted probability rolls.
+            Enemies scale via a <code>scaleFactor</code> applied to base stat templates, letting
+            the same enemy types appear across difficulty tiers. Boss encounters use the same
+            system with higher base stats and the <code>isBoss</code> flag for UI treatment.
+          </p>
+        </DeepDive>
+        <DeepDive title="Expedition & World Map System">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            The world is divided into themed regions (Greenwood Forest, Stormridge Mountains)
+            that unlock sequentially by defeating region bosses. Each region contains multiple
+            expeditions with power requirements, hero slot limits, and duration timers. Heroes
+            have an endurance system — expeditions cost endurance, and depleted heroes must rest
+            before redeploying.
+          </p>
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Expeditions can discover Points of Interest — permanent generator boosts found via
+            probability rolls during exploration. Loot generation uses boosted rarity tables for
+            creature drops and level-scaled item stats, creating a reward curve that stays
+            relevant as the player progresses through regions.
+          </p>
+        </DeepDive>
+      </CaseStudySection>
+
+      <CaseStudySection title="Results & Learnings">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          Forge &amp; Field validated that a rich idle RPG can run entirely client-side as a
+          static PWA — no server, no database, no recurring costs. The single-reducer architecture
+          kept complexity manageable across 60+ action types and made save migration straightforward.
+        </p>
+        <ul className="space-y-2">
+          <li className="flex gap-3 text-base leading-relaxed text-muted-foreground">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            A pure-function game reducer is the right abstraction for idle games — deterministic
+            state transitions make offline calculation, save/load, and debugging trivial
+          </li>
+          <li className="flex gap-3 text-base leading-relaxed text-muted-foreground">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            Weighted rarity systems need careful tuning — early versions had Epic drops too rare
+            to feel achievable, leading to a rebalance that made progression feel rewarding without
+            trivializing gear upgrades
+          </li>
+          <li className="flex gap-3 text-base leading-relaxed text-muted-foreground">
+            <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+            PWA installation and offline support turned a web game into something that feels
+            native on mobile — the viewport and safe-area handling for iOS required multiple
+            iterations to get right
+          </li>
+        </ul>
+      </CaseStudySection>
+
+      <CaseStudySection title="Links">
+        <div className="flex gap-3">
+          <a
+            href="https://forge.mattatencio.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-md bg-primary px-3 py-1.5 text-sm text-primary-foreground hover:bg-primary/90 transition-colors"
+          >
+            Live Site
+          </a>
+          <a
+            href="https://github.com/MattAtencio/forge-and-field"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-md bg-muted px-3 py-1.5 text-sm text-muted-foreground hover:bg-muted/80 transition-colors"
+          >
+            GitHub Repository
+          </a>
+        </div>
+      </CaseStudySection>
+    </CaseStudyLayout>
+  )
+}
