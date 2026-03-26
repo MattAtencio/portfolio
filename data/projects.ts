@@ -258,6 +258,58 @@ This work spans the full integration lifecycle — from vendor discovery and arc
     hasCaseStudy: true,
   },
   {
+    slug: "kids-corner",
+    title: "Kids Corner",
+    tagline: "Educational game suite for kids ages 2-6",
+    description: `Kids Corner is a collection of five interactive learning games designed for children ages 2-6. The suite includes Color Mixer (color blending), Count Along (number counting with themed object sets), Letter Land (alphabet exploration), Sunny Days (weather and daily routines), and Alpha Dots (connect-the-dots alphabet).
+
+All games share a core framework (@kids-games/core) with pre-generated TTS audio featuring kid-friendly persona voices, celebration animations, and consistent UI patterns. Accessible through a central hub at kids.mattatencio.com.`,
+    category: "games",
+    status: "active",
+    techStack: [
+      "Next.js",
+      "React 19",
+      "TypeScript",
+      "OpenAI TTS",
+      "PWA",
+      "Tailwind CSS",
+    ],
+    liveUrl: "https://kids.mattatencio.com",
+    images: {
+      thumbnail: "/images/projects/kids-corner-thumb.png",
+      screenshots: [],
+    },
+    highlights: [
+      "5 games sharing a core framework with pre-generated TTS persona voices",
+      "Age-appropriate UI with large touch targets and celebration animations",
+      "Central hub with game launcher and progress tracking",
+    ],
+    isPublic: true,
+    startDate: "2026-03",
+    featured: false,
+  },
+  {
+    slug: "mahjong-path",
+    title: "Mahjong Path",
+    tagline: "Strategic tile-matching with bot opponents",
+    description: `A Mahjong tile-matching game with three difficulty levels of bot opponents. Features hand evaluation, pattern matching, and a learn mode for newcomers. Includes beginner, intermediate, and master-level AI using shared utility functions.`,
+    category: "games",
+    status: "active",
+    techStack: ["Next.js", "React 19", "TypeScript", "PWA"],
+    images: {
+      thumbnail: "/images/projects/mahjong-thumb.png",
+      screenshots: [],
+    },
+    highlights: [
+      "Three AI difficulty tiers with shared bot utility system",
+      "Learn mode with guided tutorials",
+      "Hand evaluation and scoring engine",
+    ],
+    isPublic: true,
+    startDate: "2026-03",
+    featured: false,
+  },
+  {
     slug: "signal-forge",
     title: "Signal Forge",
     tagline: "AI-powered crypto prediction and portfolio management platform",
