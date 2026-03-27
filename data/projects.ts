@@ -35,6 +35,7 @@ Developed across 20+ sprints with an AI-assisted workflow including specialized 
       "Shipped Education Portal with certificates, workshops, and teaching practice tracking",
       "Built Communications Inbox, task management Kanban, and multi-location dashboard",
       "Added Education Analytics Dashboard with workshop conversion funnel tracking",
+      "Built in-app Help Center with FAQ, feature guides, and role-based guides",
     ],
     businessContext:
       "Fitness studios rely on fragmented tools for scheduling, payments, and client communication. FitOps consolidates these into a single platform, reducing operational overhead and improving client retention.",
@@ -310,6 +311,36 @@ All games share a core framework (@kids-games/core) with pre-generated TTS audio
     featured: false,
   },
   {
+    slug: "unified-dashboard",
+    title: "Unified Dashboard",
+    tagline:
+      "CLI dashboard aggregating usage, cost, and security signals from hosting providers",
+    description: `A terminal-based dashboard that consolidates usage metrics, cost breakdowns, and security signals from multiple hosting and cloud providers into a single view. Designed for solo developers and small teams managing infrastructure across Vercel, Cloudflare, GitHub, and other services.
+
+Aggregates billing data, deployment status, domain health, and security alerts so operators can spot issues without switching between provider dashboards.`,
+    category: "tools",
+    status: "active",
+    techStack: [
+      "Python",
+      "Rich",
+      "Vercel API",
+      "Cloudflare API",
+      "GitHub API",
+    ],
+    images: {
+      thumbnail: "/images/projects/unified-dashboard-thumb.png",
+      screenshots: [],
+    },
+    highlights: [
+      "Aggregates usage, cost, and security data from multiple hosting providers",
+      "Terminal UI with Rich for at-a-glance infrastructure health",
+      "Extensible provider plugin architecture for adding new services",
+    ],
+    isPublic: false,
+    startDate: "2026-03",
+    featured: false,
+  },
+  {
     slug: "signal-forge",
     title: "Signal Forge",
     tagline: "AI-powered crypto prediction and portfolio management platform",
@@ -468,7 +499,7 @@ Uses a phased rollout approach with security policies, automated backups, and se
     title: "Claude Framework",
     tagline:
       "Autonomous development framework turning Claude Code into a full engineering team",
-    description: `A meta-tooling framework that extends Claude Code with 35+ reusable skills, 7 specialized review agents, automated communication pipelines, and an Obsidian-backed knowledge graph. Orchestrates daily workflows from morning briefing through end-of-day wrap with parallel agent execution, Slack/Discord integration, and persistent memory across sessions.
+    description: `A meta-tooling framework that extends Claude Code with 36+ reusable skills, 7 specialized review agents, automated communication pipelines, and an Obsidian-backed knowledge graph. Orchestrates daily workflows from morning briefing through end-of-day wrap with parallel agent execution, Slack/Discord integration, and persistent memory across sessions.
 
 Built as a living system that evolves with each project — skills are composed, agents are dispatched in parallel, and session knowledge compounds through structured vault notes with wikilinks and frontmatter.`,
     category: "tools",
@@ -488,10 +519,11 @@ Built as a living system that evolves with each project — skills are composed,
       screenshots: [],
     },
     highlights: [
-      "35+ composable skills with YAML frontmatter, context isolation, and tool restrictions",
+      "36+ composable skills with YAML frontmatter, context isolation, and tool restrictions",
       "7 specialized review agents for architecture, security, product, QA, and UI/UX",
       "Automated Slack/Discord intake pipelines with classification and GitHub routing",
       "Obsidian knowledge graph with session notes, MOCs, and cross-project connection tracking",
+      "Zero-dashboard deployment automation with GitHub push, Vercel/Supabase provisioning, Cloudflare DNS, and Slack approval gates",
     ],
     businessContext:
       "Solo developer productivity multiplier — automates the overhead of managing 14+ active projects, from morning planning through deployment and daily documentation.",
