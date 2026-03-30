@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/MattAtencio/portfolio/main/schemas/portfolio.schema.json",
+  "title": "Enterprise Integration Architecture",
+  "tagline": "Cloud-native mortgage platform serving millions of B2B and B2C users",
+  "description": "At Sagent, I architect and develop cloud-native microservices for a 24/7 consumer mortgage platform. Key initiatives include modernizing authentication from single-IDP to a secure multi-IDP OIDC proxy architecture, building payment processor integrations, and optimizing observability systems.\n\nThis work spans the full integration lifecycle — from vendor discovery and architecture design through go-live and production support — across identity providers, payment processors, and servicing platforms.",
+  "category": "professional",
+  "status": "active",
+  "techStack": [
+    "C#",
+    ".NET",
+    "Azure",
+    "Microservices",
+    "OAuth/OIDC",
+    "Okta",
+    "Auth0",
+    "Terraform"
+  ],
+  "images": {
+    "thumbnail": "/images/projects/integration-thumb.png"
+  },
+  "highlights": [
+    "Modernized authentication to secure multi-IDP OIDC proxy architecture",
+    "Scaled client onboarding to 4–5 concurrent launches via automation",
+    "Reduced telemetry costs by 50% through optimized observability strategy",
+    "Established Sev 1 incident response standards and SLA frameworks"
+  ],
+  "businessContext": "Consumer mortgage platforms require 24/7 availability, strict regulatory compliance, and seamless integrations across identity, payments, and servicing vendors.",
+  "isPublic": false,
+  "startDate": "2021-08",
+  "featured": true
+}

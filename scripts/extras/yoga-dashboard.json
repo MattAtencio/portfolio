@@ -1,0 +1,24 @@
+{
+  "$schema": "https://raw.githubusercontent.com/MattAtencio/portfolio/main/schemas/portfolio.schema.json",
+  "title": "Yoga Dashboard",
+  "tagline": "Studio operations prototype with MindBody API mock",
+  "description": "A prototype dashboard for yoga studio operations, featuring a complete mock of the MindBody public API. Built as a proof-of-concept for the FitOps platform.",
+  "category": "tools",
+  "status": "maintained",
+  "techStack": [
+    "FastAPI",
+    "React",
+    "Python"
+  ],
+  "images": {
+    "thumbnail": "/images/projects/yoga-thumb.png"
+  },
+  "highlights": [
+    "Full MindBody API mock for development",
+    "End-to-end studio operations prototype",
+    "Foundation for FitOps platform development"
+  ],
+  "isPublic": false,
+  "startDate": "2024-06",
+  "featured": false
+}
