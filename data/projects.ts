@@ -250,6 +250,7 @@ This work spans the full integration lifecycle — from vendor discovery and arc
     },
     highlights: [
       "Turn-based combat with 4 hero archetypes and gear crafting",
+      "Tiered chest system with Green/Blue/Purple rarity and guaranteed drops",
       "Offline progression and prestige/rebirth system",
       "Rotating seasonal events with exclusive rewards",
     ],
@@ -326,15 +327,20 @@ Aggregates billing data, deployment status, domain health, and security alerts s
       "Vercel API",
       "Cloudflare API",
       "GitHub API",
+      "OpenAI API",
+      "Slack API",
+      "Sentry API",
+      "SendGrid API",
+      "Twilio API",
     ],
     images: {
       thumbnail: "/images/projects/unified-dashboard-thumb.png",
       screenshots: [],
     },
     highlights: [
-      "Aggregates usage, cost, and security data from multiple hosting providers",
+      "Aggregates usage, cost, and security data from 15+ hosting and SaaS providers",
       "Terminal UI with Rich for at-a-glance infrastructure health",
-      "Extensible provider plugin architecture for adding new services",
+      "10 new provider integrations: Figma, GoDaddy, n8n, OpenAI, Railway, SendGrid, Sentry, Slack, Twilio, Upstash",
     ],
     isPublic: false,
     startDate: "2026-03",
@@ -369,6 +375,7 @@ Built as a multi-service architecture with a Python/FastAPI backend, React front
       "Real-time CoinGecko market data pipeline with rate limiting and caching",
       "Trading engine with signal generation, smart exits, and position management",
       "Portfolio tracker with performance metrics, allocation analysis, and rebalancing",
+      "Live exchange integration with real market data ingestion and security hardening",
     ],
     businessContext:
       "Quantitative approach to cryptocurrency investment with risk-managed strategies, separating BTC long-term holds from altcoin swing trades.",
@@ -428,6 +435,7 @@ Features include automated transaction sync, AI-powered categorization, push not
       "Turborepo monorepo with Express 5 API and React 19 PWA",
       "BullMQ job queue with Redis for background processing",
       "Financial goal tracking with CRUD, push notifications, and cash flow summaries",
+      "Recurring transaction templates with frequency scheduling and forecast integration",
     ],
     businessContext:
       "Consolidates personal finance data from multiple bank accounts with AI-driven insights to improve financial awareness and decision-making.",
