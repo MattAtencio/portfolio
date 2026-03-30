@@ -15,7 +15,7 @@ const caseStudyMap: Record<string, () => Promise<{ default: React.ComponentType 
 
 export async function generateStaticParams() {
   return projects
-    .filter((p) => p.hasCaseStudy)
+    .filter((p) => p.hasCaseStudy && (p.isPublic || p.featured))
     .map((p) => ({ slug: p.slug }))
 }
 
@@ -24,7 +24,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { slug } = await params
   const project = getProjectBySlug(slug)
-  if (!project) return {}
+  if (!project || (!project.isPublic && !project.featured)) return {}
 
   return {
     title: `${project.title} — Case Study`,
@@ -36,7 +36,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
   const { slug } = await params
   const project = getProjectBySlug(slug)
 
-  if (!project || !project.hasCaseStudy || !caseStudyMap[slug]) {
+  if (!project || (!project.isPublic && !project.featured) || !project.hasCaseStudy || !caseStudyMap[slug]) {
     notFound()
   }
 

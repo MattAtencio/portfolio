@@ -375,7 +375,7 @@ Built as a multi-service architecture with a Python/FastAPI backend, React front
       "Real-time CoinGecko market data pipeline with rate limiting and caching",
       "Trading engine with signal generation, smart exits, and position management",
       "Portfolio tracker with performance metrics, allocation analysis, and rebalancing",
-      "Live exchange integration with real market data ingestion and security hardening",
+      "Real market data ingestion pipeline with security hardening",
     ],
     businessContext:
       "Quantitative approach to cryptocurrency investment with risk-managed strategies, separating BTC long-term holds from altcoin swing trades.",
@@ -447,7 +447,7 @@ Features include automated transaction sync, AI-powered categorization, push not
     slug: "homelab-dashboard",
     title: "Homelab Dashboard",
     tagline: "Hardware inventory and network topology for a home server lab",
-    description: `A self-hosted dashboard for managing homelab hardware inventory — network diagram, device tree, and workbench views. Deployed via Docker Compose to a Raspberry Pi with remote access through Cloudflare Tunnel.
+    description: `A self-hosted dashboard for managing homelab hardware inventory — network diagram, device tree, and workbench views. Deployed to a self-hosted server with secure remote access.
 
 Built with React and Express, using LowDB for lightweight JSON-file persistence.`,
     category: "tools",
@@ -458,7 +458,6 @@ Built with React and Express, using LowDB for lightweight JSON-file persistence.
       "Express",
       "LowDB",
       "Docker",
-      "Cloudflare Tunnel",
     ],
     images: {
       thumbnail: "/images/projects/homelab-thumb.png",
@@ -466,7 +465,7 @@ Built with React and Express, using LowDB for lightweight JSON-file persistence.
     },
     highlights: [
       "Grouped network topology view with interactive device tree",
-      "Dockerized deployment to Raspberry Pi with Cloudflare Tunnel access",
+      "Containerized deployment to self-hosted server with zero-trust remote access",
       "LowDB JSON-file persistence with seed data separation",
     ],
     isPublic: false,
@@ -477,26 +476,24 @@ Built with React and Express, using LowDB for lightweight JSON-file persistence.
     slug: "homelab-infra",
     title: "Homelab Infrastructure",
     tagline: "Infrastructure-as-code for a self-hosted home server environment",
-    description: `Infrastructure-as-code repository managing a personal homelab environment. Covers provisioning, configuration management, and service deployment for self-hosted storage and network services.
+    description: `Infrastructure-as-code repository managing a personal homelab environment. Covers provisioning, configuration management, and service deployment for self-hosted services.
 
-Uses a phased rollout approach with security policies, automated backups, and secure remote access.`,
+Uses a phased rollout approach with security policies, automated backups, and zero-trust remote access.`,
     category: "tools",
     status: "active",
     techStack: [
       "Terraform",
       "Ansible",
       "Docker Compose",
-      "Raspberry Pi",
-      "Cloudflare Tunnel",
     ],
     images: {
       thumbnail: "/images/projects/homelab-infra-thumb.png",
       screenshots: [],
     },
     highlights: [
-      "Phased IaC rollout for private cloud storage and network services",
+      "Phased IaC rollout for self-hosted services",
       "Automated provisioning with Terraform and Ansible",
-      "Secure remote access via tunneling with no exposed ports",
+      "Zero-trust remote access with no exposed ports",
     ],
     isPublic: false,
     startDate: "2026-03",

@@ -8,7 +8,7 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }))
+  return projects.filter((p) => p.isPublic || p.featured).map((p) => ({ slug: p.slug }))
 }
 
 export async function generateMetadata({
@@ -16,7 +16,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { slug } = await params
   const project = getProjectBySlug(slug)
-  if (!project) return {}
+  if (!project || (!project.isPublic && !project.featured)) return {}
 
   return {
     title: project.title,
@@ -28,7 +28,7 @@ export default async function ProjectPage({ params }: PageProps) {
   const { slug } = await params
   const project = getProjectBySlug(slug)
 
-  if (!project) {
+  if (!project || (!project.isPublic && !project.featured)) {
     notFound()
   }
 
