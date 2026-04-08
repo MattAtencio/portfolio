@@ -5,48 +5,39 @@ import type { Project } from "@/types/project"
 
 export const projects: Project[] = [
   {
-    slug: "fitops",
-    title: "FitOps Studio",
+    slug: "learnpod",
+    title: "LearnPod",
     tagline:
-      "Full-stack SaaS platform for fitness studio operations management",
-    description: `FitOps is a comprehensive SaaS platform for fitness studio operations. It integrates with the MindBody API to provide real-time class scheduling, client management, revenue analytics, staff payroll, and automated client journey workflows.
+      "Personal learning system that turns saved content into spaced-repetition pods",
+    description: `LearnPod is a PWA that captures learning content from Instagram, articles, and videos and organizes it into atomic Pods and Modules. Pods sync from an Obsidian vault, get enriched with research and notes, and surface back through an interleaved review queue with XP, streaks, and progress tracking.
 
-The platform features role-based access control (Owner, Ops Manager, Front Desk, Teacher), a visual journey builder, multi-location dashboard with KPI comparison, an Education Portal with certificates and workshop tracking, a Communications Inbox for unified messaging, task management with Kanban boards, referral tracking, kiosk check-in, and configurable analytics.
-
-Developed across 20+ sprints with an AI-assisted workflow including specialized agents for spec writing, development, QA, peer review, and architecture decisions.`,
+Designed for self-directed learners who want to retain what they save instead of letting it rot in bookmarks.`,
     category: "featured",
     status: "active",
     techStack: [
       "Next.js 15",
       "React 19",
       "TypeScript",
-      "Tailwind CSS 4",
-      "Prisma",
-      "PostgreSQL",
-      "Auth.js",
-      "Framer Motion",
+      "Zustand",
+      "next-pwa",
+      "Obsidian",
       "Vercel",
-      "Playwright",
     ],
-    repoUrl: "https://github.com/MattAtencio/FitOps",
+    repoUrl: "https://github.com/MattAtencio/learnpod",
     images: {
-      thumbnail: "/images/projects/fitops-thumb.png",
+      thumbnail: "/images/projects/learnpod-thumb.png",
       screenshots: [],
     },
     highlights: [
-      "Designed RBAC system with 4 role tiers and server-side enforcement",
-      "Built visual journey engine with automated client lifecycle workflows",
-      "Shipped Education Portal with certificates, workshops, and teaching practice tracking",
-      "Built Communications Inbox, task management Kanban, and multi-location dashboard",
-      "Added Education Analytics Dashboard with workshop conversion funnel tracking",
-      "Built in-app Help Center with FAQ, feature guides, and role-based guides",
+      "268 pods synced from Obsidian vault into a structured learning library",
+      "Streaks v2 with forgiveness windows and XP-based progression",
+      "Interleaved review queue mixing pods across modules for better retention",
+      "Installable PWA with offline support for on-the-go review",
+      "Vault-as-source-of-truth pipeline: capture in Obsidian, study in the app",
     ],
-    businessContext:
-      "Fitness studios rely on fragmented tools for scheduling, payments, and client communication. FitOps consolidates these into a single platform, reducing operational overhead and improving client retention.",
     isPublic: false,
-    startDate: "2025-03",
+    startDate: "2026-03",
     featured: true,
-    hasCaseStudy: true,
   },
   {
     slug: "enterprise-integration",
@@ -82,6 +73,47 @@ This work spans the full integration lifecycle — from vendor discovery and arc
       "Consumer mortgage platforms require 24/7 availability, strict regulatory compliance, and seamless integrations across identity, payments, and servicing vendors.",
     isPublic: false,
     startDate: "2021-08",
+    featured: true,
+  },
+  {
+    slug: "fitops",
+    title: "FitOps",
+    tagline:
+      "All-in-one operations platform for personal trainers and fitness studios",
+    description: `FitOps is a full-stack business platform for personal trainers and fitness studios — combining CRM, scheduling, education, communications, referrals, and analytics into a single product. Built as a multi-sprint Next.js application with role-based portals for managers, trainers, students, and clients.
+
+Recent work centers on a Phase 1 Content & Marketing Center MVP, an in-app Help Center, an Education Portal with certificates and workshops, a Communications Inbox with PII redaction and transcription, member journey timelines, referral tracking, and a major test infrastructure overhaul.`,
+    category: "professional",
+    status: "active",
+    techStack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Prisma",
+      "PostgreSQL",
+      "Jest",
+      "Playwright",
+      "Tailwind CSS",
+    ],
+    repoUrl: "https://github.com/MattAtencio/FitOps",
+    images: {
+      thumbnail: "/images/projects/fitops-thumb.png",
+      screenshots: [],
+    },
+    highlights: [
+      "Content & Marketing Center Phase 1 MVP shipped",
+      "Resolved 356 failing test suites via ESM/CJS Jest config fix",
+      "Collapsible sidebar navigation that adapts to active section",
+      "In-app Help Center with FAQ, feature guides, and role-aware guides",
+      "Education Portal Phase 2 — certificates, teaching practice, workshops",
+      "Education Analytics Dashboard with Workshop Conversion Funnel",
+      "Communications Inbox Premium with PII redaction and audio transcription",
+      "Member Journey Timeline and full referral tracking system",
+    ],
+    businessContext:
+      "Targets independent personal trainers and small fitness studios who need an integrated platform instead of stitching together CRM, scheduling, comms, and education tools.",
+    isPublic: false,
+    startDate: "2025-09",
     featured: true,
   },
   {
@@ -250,6 +282,7 @@ All games share a core framework (@kids-games/core) with pre-generated TTS audio
       "TypeScript",
       "PWA",
     ],
+    liveUrl: "https://mahjong.mattatencio.com",
     repoUrl: "https://github.com/MattAtencio/mahjong-path",
     images: {
       thumbnail: "/images/projects/mahjong-thumb.png",
@@ -420,13 +453,13 @@ Built as a living system that evolves with each project — skills are composed,
     hasCaseStudy: true,
   },
   {
-    slug: "homelab-dashboard",
-    title: "Homelab Dashboard",
+    slug: "homelab",
+    title: "Homelab",
     tagline:
-      "Hardware inventory and network topology for a home server lab",
-    description: `A self-hosted dashboard for managing homelab hardware inventory — network diagram, device tree, and workbench views. Deployed to a self-hosted server with secure remote access.
+      "Infrastructure-as-code and hardware dashboard for a self-hosted home server lab",
+    description: `Monorepo for a personal homelab environment. Includes a React hardware inventory dashboard with network topology visualization, plus infrastructure-as-code for provisioning and service deployment.
 
-Built with React and Express, using LowDB for lightweight JSON-file persistence.`,
+Phased rollout from NAS foundation through AI memory layer, with security policies, containerized services, and zero-trust remote access.`,
     category: "tools",
     status: "active",
     techStack: [
@@ -434,49 +467,57 @@ Built with React and Express, using LowDB for lightweight JSON-file persistence.
       "Vite",
       "Express",
       "LowDB",
-      "Docker",
+      "Docker Compose",
+      "Terraform",
+      "Ansible",
+      "Pi-hole",
+      "NetAlertX",
+      "n8n",
     ],
-    repoUrl: "https://github.com/MattAtencio/homelab-dashboard",
     images: {
       thumbnail: "/images/projects/homelab-thumb.png",
       screenshots: [],
     },
     highlights: [
       "Grouped network topology view with interactive device tree",
-      "Containerized deployment to self-hosted server with zero-trust remote access",
-      "LowDB JSON-file persistence with seed data separation",
+      "Phased IaC rollout for self-hosted services",
+      "Containerized deployment with zero-trust remote access",
+      "Infra-ops system with agents, skills, scripts, and SSH guardrails for safe remote ops",
+      "Docker stacks for Pi-hole, NetAlertX, and n8n automation",
+      "Self-hosted n8n automation playbook with 14 starter workflows",
     ],
     isPublic: false,
     startDate: "2026-02",
     featured: false,
   },
   {
-    slug: "homelab-infra",
-    title: "Homelab Infrastructure",
+    slug: "infra",
+    title: "Infra",
     tagline:
-      "Infrastructure-as-code for a self-hosted home server environment",
-    description: `Infrastructure-as-code repository managing a personal homelab environment. Covers provisioning, configuration management, and service deployment for self-hosted services.
+      "Terraform IaC for game sites, DNS, and GitHub repo configuration",
+    description: `Infrastructure-as-code repo that codifies the deployment substrate for a portfolio of small game sites and tools. A reusable Terraform game-site module standardizes hosting, DNS, and repo wiring so new games can ship with a single module call.
 
-Uses a phased rollout approach with security policies, automated backups, and zero-trust remote access.`,
+Cloudflare DNS records and GitHub repository configuration are managed declaratively, eliminating dashboard drift and making infrastructure changes reviewable in PRs.`,
     category: "tools",
     status: "active",
     techStack: [
       "Terraform",
-      "Ansible",
-      "Docker Compose",
+      "Cloudflare",
+      "GitHub",
+      "HCL",
     ],
-    repoUrl: "https://github.com/MattAtencio/homelab-infra",
     images: {
-      thumbnail: "/images/projects/homelab-infra-thumb.png",
+      thumbnail: "/images/projects/infra-thumb.png",
       screenshots: [],
     },
     highlights: [
-      "Phased IaC rollout for self-hosted services",
-      "Automated provisioning with Terraform and Ansible",
-      "Zero-trust remote access with no exposed ports",
+      "Reusable Terraform game-site module for one-call deployment of new games",
+      "Cloudflare DNS managed as code across all project domains",
+      "GitHub repository configuration codified — settings, branch protection, secrets",
+      "Single source of truth for hosting, DNS, and repo state across the portfolio",
     ],
     isPublic: false,
-    startDate: "2026-03",
+    startDate: "2026-02",
     featured: false,
   },
   {
@@ -511,6 +552,12 @@ Built as a multi-service architecture with a Python/FastAPI backend, React front
       "Trading engine with signal generation, smart exits, and position management",
       "Portfolio tracker with performance metrics, allocation analysis, and rebalancing",
       "Real market data ingestion pipeline with security hardening",
+      "Batch backtest UI for sweeping parameters across symbols and timeframes",
+      "Backtest detail page with per-trade breakdown and equity curve visualization",
+      "58 unit tests covering strategy, signals, and backtest engine",
+      "Binance funding rates integrated as a model feature",
+      "MACD normalization for cross-asset model stability",
+      "Feature-complete — moving to validation and live-paper trading phase",
     ],
     businessContext:
       "Quantitative approach to cryptocurrency investment with risk-managed strategies, separating BTC long-term holds from altcoin swing trades.",
@@ -549,6 +596,9 @@ Aggregates billing data, deployment status, domain health, and security alerts s
       "Aggregates usage, cost, and security data from 15+ hosting and SaaS providers",
       "Terminal UI with Rich for at-a-glance infrastructure health",
       "10 new provider integrations: Figma, GoDaddy, n8n, OpenAI, Railway, SendGrid, Sentry, Slack, Twilio, Upstash",
+      "Security hardening pass across provider clients and credential handling",
+      "TypeScript strictness fixes for provider response contracts",
+      "Centralized cost constants for consistent rate math across providers",
     ],
     isPublic: false,
     startDate: "2026-03",
