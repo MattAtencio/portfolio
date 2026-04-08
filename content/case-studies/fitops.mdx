@@ -2,6 +2,7 @@ import { CaseStudyLayout } from "@/components/case-study/CaseStudyLayout"
 import { CaseStudySection } from "@/components/case-study/Section"
 import { FeatureShowcase } from "@/components/case-study/FeatureShowcase"
 import { DeepDive } from "@/components/case-study/DeepDive"
+import { ScreenshotGallery } from "@/components/case-study/ScreenshotGallery"
 import { getProjectBySlug } from "@/data/projects"
 
 export default function FitOpsCaseStudy() {
@@ -68,6 +69,23 @@ export default function FitOpsCaseStudy() {
               description:
                 "Multi-location revenue dashboards with breakdown by service type, instructor, and time period. Tracks key metrics: revenue per visit, client lifetime value, class fill rates, and retention cohorts.",
             },
+          ]}
+        />
+      </CaseStudySection>
+
+      <CaseStudySection title="Screenshots">
+        <ScreenshotGallery
+          screenshots={[
+            { src: "/images/projects/fitops/screenshot-01.png", alt: "FitOps screenshot 1" },
+            { src: "/images/projects/fitops/screenshot-02.png", alt: "FitOps screenshot 2" },
+            { src: "/images/projects/fitops/screenshot-03.png", alt: "FitOps screenshot 3" },
+            { src: "/images/projects/fitops/screenshot-04.png", alt: "FitOps screenshot 4" },
+            { src: "/images/projects/fitops/screenshot-05.png", alt: "FitOps screenshot 5" },
+            { src: "/images/projects/fitops/screenshot-06.png", alt: "FitOps screenshot 6" },
+            { src: "/images/projects/fitops/screenshot-07.png", alt: "FitOps screenshot 7" },
+            { src: "/images/projects/fitops/screenshot-08.png", alt: "FitOps screenshot 8" },
+            { src: "/images/projects/fitops/screenshot-09.png", alt: "FitOps screenshot 9" },
+            { src: "/images/projects/fitops/screenshot-10.png", alt: "FitOps screenshot 10" },
           ]}
         />
       </CaseStudySection>

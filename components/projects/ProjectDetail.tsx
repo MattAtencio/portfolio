@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator"
 import { ArrowLeft, BookOpen, ExternalLink, Github, Lock, Map } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
+import { ScreenshotGallery } from "@/components/case-study/ScreenshotGallery"
 
 interface ProjectDetailProps {
   project: Project
@@ -139,6 +140,21 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
             ))}
           </ul>
         </motion.div>
+
+        {/* Screenshots */}
+        {project.images.screenshots.length > 0 && (
+          <motion.div variants={staggerChild} className="mb-8">
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+              Screenshots
+            </h2>
+            <ScreenshotGallery
+              screenshots={project.images.screenshots.map((src, i) => ({
+                src,
+                alt: `${project.title} screenshot ${i + 1}`,
+              }))}
+            />
+          </motion.div>
+        )}
 
         {/* Tech stack */}
         <motion.div variants={staggerChild}>

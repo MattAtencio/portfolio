@@ -1,0 +1,332 @@
+/* DepositNet concept — finance terminal aesthetic */
+:root {
+  --bg: #0b1220;
+  --panel: #111a2e;
+  --panel-2: #162038;
+  --border: #1f2c4a;
+  --text: #e5edff;
+  --muted: #8094bd;
+  --green: #34d399;
+  --green-dim: #065f46;
+  --amber: #fbbf24;
+  --amber-dim: #78350f;
+  --red: #f87171;
+  --red-dim: #7f1d1d;
+  --accent: #5eead4;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0; padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  overflow-x: hidden;
+}
+a { color: var(--accent); text-decoration: none; }
+button { font-family: inherit; }
+
+/* Layout */
+.app { max-width: 1280px; margin: 0 auto; padding: 16px 20px 64px; }
+.header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-bottom: 14px; border-bottom: 1px solid var(--border); margin-bottom: 14px;
+}
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: 0.02em; }
+.brand .dot { width: 10px; height: 10px; background: var(--accent); border-radius: 2px; }
+.brand .sub { color: var(--muted); font-weight: 400; font-size: 11px; margin-left: 8px; text-transform: uppercase; letter-spacing: 0.12em; }
+.who { color: var(--muted); font-size: 12px; }
+.who b { color: var(--text); }
+
+.tabs { display: flex; gap: 4px; margin-bottom: 16px; }
+.tab {
+  background: var(--panel); color: var(--muted);
+  border: 1px solid var(--border); border-bottom: none;
+  padding: 10px 18px; cursor: pointer; font-size: 12px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  border-radius: 6px 6px 0 0;
+}
+.tab:hover { color: var(--text); }
+.tab.active { background: var(--panel-2); color: var(--text); border-color: var(--accent); }
+
+.panel {
+  background: var(--panel); border: 1px solid var(--border); border-radius: 6px;
+  padding: 14px 16px; margin-bottom: 14px;
+}
+.panel h2 { margin: 0 0 10px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; }
+.row { display: flex; gap: 14px; }
+.row > * { flex: 1; }
+
+/* KPIs */
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+.kpi { background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 6px; padding: 14px 16px; }
+.kpi .label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 6px; }
+.kpi .value { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.kpi.warn { border-left-color: var(--amber); }
+.kpi.bad  { border-left-color: var(--red); }
+.kpi.good { border-left-color: var(--green); }
+.kpi .delta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.kpi .delta.neg { color: var(--red); }
+.kpi .delta.pos { color: var(--green); }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); }
+th { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+td.num { text-align: right; }
+tr:hover td { background: rgba(94, 234, 212, 0.04); }
+
+.pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.pill.green { background: var(--green-dim); color: var(--green); }
+.pill.amber { background: var(--amber-dim); color: var(--amber); }
+.pill.red   { background: var(--red-dim); color: var(--red); }
+.pill.gray  { background: #1f2c4a; color: var(--muted); }
+
+.btn {
+  background: var(--accent); color: #042f2e; border: none; border-radius: 4px;
+  padding: 8px 14px; font-weight: 600; font-size: 12px; cursor: pointer;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.btn:hover { filter: brightness(1.1); }
+.btn.ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+
+/* Integration cards */
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.card { background: var(--panel-2); border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; }
+.card.green { border-left: 3px solid var(--green); }
+.card.amber { border-left: 3px solid var(--amber); }
+.card.red   { border-left: 3px solid var(--red); }
+.card.gray  { border-left: 3px solid var(--muted); }
+.card .title { display: flex; justify-content: space-between; align-items: baseline; }
+.card .title h3 { margin: 0; font-size: 14px; }
+.card .meta { color: var(--muted); font-size: 11px; margin-top: 6px; }
+.card .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; font-variant-numeric: tabular-nums; }
+.card .stats div { background: var(--panel); padding: 8px; border-radius: 4px; }
+.card .stats .lbl { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.card .stats .val { font-size: 14px; font-weight: 600; margin-top: 2px; }
+
+/* Wizard steps */
+.steps { display: flex; gap: 8px; margin: 8px 0 4px; }
+.step { flex: 1; background: var(--panel-2); border: 1px solid var(--border); border-radius: 4px; padding: 10px; font-size: 11px; color: var(--muted); }
+.step.done { border-color: var(--green); color: var(--green); }
+.step.active { border-color: var(--accent); color: var(--text); }
+
+/* Order book */
+.book { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.book .side { padding: 0 8px; }
+.book .side h3 { font-size: 11px; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; letter-spacing: 0.08em; }
+.book table th { font-size: 9px; }
+.book .ask td { color: var(--red); }
+.book .bid td { color: var(--green); }
+.depthbar { height: 14px; background: rgba(94, 234, 212, 0.08); position: relative; }
+.depthbar .fill { position: absolute; top: 0; bottom: 0; right: 0; background: rgba(52, 211, 153, 0.18); }
+.book .ask .depthbar .fill { background: rgba(248, 113, 113, 0.18); }
+
+/* Form */
+.form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.form label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 4px; }
+.form input, .form select {
+  width: 100%; background: var(--panel); border: 1px solid var(--border); color: var(--text);
+  padding: 8px 10px; border-radius: 4px; font-family: inherit; font-size: 13px;
+}
+.form .full { grid-column: 1 / -1; }
+.coverage-preview {
+  background: var(--panel-2); border: 1px solid var(--border); border-radius: 4px;
+  padding: 10px 12px; font-size: 11px; color: var(--muted); margin-top: 6px;
+}
+.coverage-preview b { color: var(--green); }
+.coverage-preview.warn b { color: var(--amber); }
+
+/* Modal */
+.modal-bg {
+  position: fixed; inset: 0; background: rgba(2, 6, 23, 0.75);
+  display: none; align-items: center; justify-content: center; z-index: 100;
+}
+.modal-bg.show { display: flex; }
+.modal {
+  background: var(--panel); border: 1px solid var(--accent); border-radius: 8px;
+  padding: 20px 24px; max-width: 480px; width: 100%;
+}
+.modal h3 { margin: 0 0 10px; }
+.modal .actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; }
+
+.tabpanel { display: none; }
+.tabpanel.active { display: block; }
+
+/* Surface switcher (Institution Console / Network Admin) */
+.surface-switcher {
+  display: flex; gap: 0; margin-bottom: 14px;
+  border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+  width: fit-content;
+}
+.surface-switcher .surface {
+  background: var(--panel); color: var(--muted); border: none;
+  padding: 8px 18px; cursor: pointer; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em; font-family: inherit;
+}
+.surface-switcher .surface.active { background: var(--accent); color: #042f2e; }
+.surface-switcher .surface.admin.active { background: #dc2626; color: #fff; }
+
+/* Admin surface accent — red bar at top */
+body.surface-admin .header { border-bottom-color: #dc2626; }
+body.surface-admin .header::before {
+  content: "INTERNAL · NETWORK OPERATORS ONLY · ALL ACTIONS AUDITED";
+  position: fixed; top: 0; left: 0; right: 0;
+  background: #dc2626; color: #fff;
+  text-align: center; padding: 4px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+  z-index: 50;
+}
+body.surface-admin .app { padding-top: 32px; }
+body.surface-admin .tab.active { border-color: #dc2626; }
+body.surface-admin .kpi { border-left-color: #dc2626; }
+
+.surface-pane { display: none; }
+.surface-pane.active { display: block; }
+
+/* Observe mode banner */
+.observe-banner {
+  background: linear-gradient(90deg, rgba(251,191,36,0.12), rgba(251,191,36,0.04));
+  border: 1px solid var(--amber); border-radius: 6px;
+  padding: 10px 14px; margin-bottom: 12px;
+  font-size: 12px; color: var(--amber);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.observe-banner b { color: var(--text); }
+.observe-banner a { color: var(--accent); cursor: pointer; }
+
+/* Persona dropdown */
+.persona-select {
+  background: var(--panel); border: 1px solid var(--border); color: var(--text);
+  padding: 6px 10px; border-radius: 4px; font-family: inherit; font-size: 12px;
+}
+.persona-select:focus { outline: 1px solid var(--accent); }
+
+code { background: var(--panel-2); padding: 1px 5px; border-radius: 3px; font-size: 11px; color: var(--accent); }
+
+.muted { color: var(--muted); }
+.right { text-align: right; }
+.mt { margin-top: 12px; }
+
+/* ============================================================
+   Tier 2 additions
+   ============================================================ */
+
+/* Sub-tabs (Marketplace · Term Funding / NBID) */
+.subtabs {
+  display: flex; gap: 2px; margin-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+.subtab {
+  background: transparent; color: var(--muted);
+  border: 1px solid transparent; border-bottom: none;
+  padding: 8px 14px; cursor: pointer; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.06em;
+  border-radius: 4px 4px 0 0;
+  margin-bottom: -1px;
+}
+.subtab:hover { color: var(--text); }
+.subtab.active {
+  background: var(--panel-2); color: var(--text);
+  border-color: var(--border); border-bottom-color: var(--panel-2);
+}
+.subtabpanel { display: none; }
+.subtabpanel.active { display: block; }
+
+/* Position graph (NBID sub-tab) */
+.position-graph svg { width: 100%; height: 380px; }
+.position-graph .node-bg {
+  fill: var(--panel-2); stroke: var(--accent); stroke-width: 1.5;
+}
+.position-graph .node-bg.fdic { stroke: var(--green); }
+.position-graph .node-bg.ncua { stroke: var(--amber); }
+.position-graph .node-label {
+  fill: var(--text); font-size: 11px; font-weight: 600;
+  text-anchor: middle; dominant-baseline: middle;
+  font-family: inherit;
+}
+.position-graph .node-sub {
+  fill: var(--muted); font-size: 9px;
+  text-anchor: middle; dominant-baseline: middle;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.position-graph .edge-line {
+  stroke: var(--accent); stroke-width: 2; fill: none;
+  marker-end: url(#arrowhead);
+}
+.position-graph .edge-label {
+  fill: var(--accent); font-size: 10px; font-family: inherit;
+  text-anchor: middle; font-variant-numeric: tabular-nums;
+}
+
+/* Settlement routing diagram (Integrations tab) */
+.settlement-routing { display: flex; flex-direction: column; gap: 10px; }
+.routing-row {
+  display: grid; grid-template-columns: 200px 1fr 1fr 200px;
+  gap: 12px; align-items: center;
+  padding: 10px 12px; background: var(--panel-2);
+  border: 1px solid var(--border); border-radius: 4px;
+  font-size: 12px;
+}
+.routing-row .inst-name { font-weight: 600; }
+.routing-row .inst-meta { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.routing-row .arrow {
+  display: flex; align-items: center; gap: 8px; color: var(--muted); font-family: monospace;
+}
+.routing-row.via .arrow { color: var(--amber); }
+.routing-row.direct .arrow { color: var(--green); }
+.routing-row .partner-bank {
+  background: var(--panel); border: 1px dashed var(--amber);
+  padding: 6px 10px; border-radius: 4px; font-size: 11px;
+}
+.routing-row .rail {
+  text-align: right; color: var(--accent); font-family: monospace; font-size: 11px;
+}
+.partner-bank-card {
+  background: var(--panel-2); border: 1px solid var(--amber); border-left: 3px solid var(--amber);
+  border-radius: 4px; padding: 12px 16px; margin-bottom: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.partner-bank-card .pb-title { font-weight: 600; }
+.partner-bank-card .pb-meta { color: var(--muted); font-size: 11px; }
+
+/* Settlement state machine pipeline (Network Operations) */
+.state-pill {
+  display: inline-block; padding: 2px 8px; border-radius: 10px;
+  font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+  font-family: monospace;
+}
+.state-pill.pending           { background: #1f2c4a; color: var(--muted); }
+.state-pill.queued_for_window { background: var(--amber-dim); color: var(--amber); }
+.state-pill.sent              { background: rgba(94, 234, 212, 0.18); color: var(--accent); }
+.state-pill.confirmed         { background: var(--green-dim); color: var(--green); }
+.state-pill.broken            { background: var(--red-dim); color: var(--red); }
+.state-pill.expired           { background: #1f2c4a; color: var(--muted); text-decoration: line-through; }
+
+/* Merkle root rows (Ledger Integrity panel) */
+.merkle-summary {
+  display: flex; gap: 18px; padding: 10px 14px; margin-bottom: 12px;
+  background: var(--panel-2); border: 1px solid var(--border); border-radius: 4px;
+  font-size: 11px; color: var(--muted);
+}
+.merkle-summary b { color: var(--text); font-variant-numeric: tabular-nums; }
+.merkle-hash {
+  font-family: monospace; font-size: 10px; color: var(--accent);
+  background: var(--panel-2); padding: 2px 6px; border-radius: 3px;
+}
+.commit-dot {
+  display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  margin-right: 4px;
+}
+.commit-dot.ok      { background: var(--green); }
+.commit-dot.pending { background: var(--amber); }
+.commit-dot.fail    { background: var(--red); }
+
+/* Coverage preview — extended for network aggregation */
+.coverage-preview .net-breakdown {
+  margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border);
+  font-size: 10px; color: var(--muted);
+}
+.coverage-preview .net-breakdown .row { display: flex; justify-content: space-between; margin-top: 2px; }
+.coverage-preview .net-breakdown .row b { color: var(--text); font-variant-numeric: tabular-nums; }

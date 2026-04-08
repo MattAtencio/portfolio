@@ -50,6 +50,48 @@ LearnPod has been shaped by four VP-level expert reviews (Education, Engagement,
     featured: true,
   },
   {
+    slug: "deposit-networks",
+    title: "Deposit Networks",
+    tagline:
+      "A category case study on the API-first rewiring of wholesale deposit liquidity",
+    description: `A public research case study on the reciprocal deposit and wholesale liquidity category — the \$2.3T market still running on phone calls and spreadsheets that a handful of API-first startups are now quietly replatforming.
+
+The write-up covers the category's customers and their morning-of pain (EGRRCPA headroom, coverage ceilings, settlement breaks), the incumbent and challenger landscape, the structural tailwinds that opened the wedge post-SVB, the real headwinds any winner has to solve (integration politics, network bootstrapping, regulated-utility trust), and an opinionated take on how I'd architect the platform — including a static concept UI, system architecture diagrams, and an OpenAPI specification for the institution-facing surface.
+
+Positioned as an outsider-engineer's research artifact, not a product pitch or a grade of any single company. It was written because the problem space is genuinely one of the most interesting regulated-infrastructure wedges in fintech right now.`,
+    category: "featured",
+    status: "active",
+    techStack: [
+      "Go",
+      "PostgreSQL",
+      "OpenAPI 3.1",
+      "mTLS",
+      "Event-sourced Ledger",
+      "Mermaid",
+      "System Design",
+    ],
+    liveUrl: "/case-studies/deposit-networks/mockup/index.html",
+    images: {
+      thumbnail: "/images/projects/deposit-networks-thumb.svg",
+      screenshots: [],
+    },
+    highlights: [
+      "Category map of reciprocal deposit and wholesale liquidity infrastructure — incumbents, challengers, and the wedge post-SVB",
+      "Concept UI exploring the three operator personas a platform in this space has to serve: treasury, controller, and network admin",
+      "System architecture decomposing a regulated network platform into services with clear trust boundaries and failure modes",
+      "OpenAPI 3.1 specification for the institution-facing API surface — mTLS, idempotency, audit, and coverage-aware order placement",
+      "Append-only double-entry ledger data model with reconciliation break handling as a first-class concept",
+      "EGRRCPA headroom and insurance coverage modeled as the KPIs customer operators actually live inside",
+      "Opinionated take on what a winner in this category has to solve to reach IPO-velocity — integration throughput, trust posture, and economic model design",
+    ],
+    businessContext:
+      "Public research artifact. Written as an engineer's honest appraisal of an emerging fintech infrastructure category — what makes the wedge real, what the structural risks look like, and how I'd build in it if I were on a founding team.",
+    isPublic: true,
+    startDate: "2026-04",
+    featured: true,
+    hasCaseStudy: true,
+  },
+  {
     slug: "enterprise-integration",
     title: "Enterprise Integration Architecture",
     tagline:
@@ -111,7 +153,7 @@ It ships role-based portals for managers, trainers, students, and clients, plus 
     repoUrl: "https://github.com/MattAtencio/FitOps",
     images: {
       thumbnail: "/images/projects/fitops-thumb.png",
-      screenshots: [],
+      screenshots: ["/images/projects/fitops/screenshot-01.png", "/images/projects/fitops/screenshot-02.png", "/images/projects/fitops/screenshot-03.png", "/images/projects/fitops/screenshot-04.png", "/images/projects/fitops/screenshot-05.png", "/images/projects/fitops/screenshot-06.png", "/images/projects/fitops/screenshot-07.png", "/images/projects/fitops/screenshot-08.png", "/images/projects/fitops/screenshot-09.png", "/images/projects/fitops/screenshot-10.png"],
     },
     highlights: [
       "Role-based portals for managers, trainers, students, and clients, plus a studio kiosk mode",

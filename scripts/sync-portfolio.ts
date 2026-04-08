@@ -195,6 +195,15 @@ function resolveProject(
   return project
 }
 
+// Explicit display order for featured projects. Slugs not listed fall back to alphabetical.
+const FEATURED_ORDER: Record<string, number> = {
+  "enterprise-integration": 1,
+  "fitops": 2,
+  "claude-framework": 3,
+  "learnpod": 4,
+  "deposit-networks": 5,
+}
+
 function sortProjects(projects: Project[]): Project[] {
   return projects.sort((a, b) => {
     const catA = CATEGORY_ORDER.indexOf(a.category as typeof CATEGORY_ORDER[number])
@@ -202,6 +211,12 @@ function sortProjects(projects: Project[]): Project[] {
     if (catA !== catB) return catA - catB
     // Within same category, featured first
     if (a.featured !== b.featured) return a.featured ? -1 : 1
+    // Among featured, use explicit FEATURED_ORDER
+    if (a.featured && b.featured) {
+      const oA = FEATURED_ORDER[a.slug] ?? Number.MAX_SAFE_INTEGER
+      const oB = FEATURED_ORDER[b.slug] ?? Number.MAX_SAFE_INTEGER
+      if (oA !== oB) return oA - oB
+    }
     // Then alphabetical by title
     return a.title.localeCompare(b.title)
   })

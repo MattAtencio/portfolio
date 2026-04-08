@@ -1,0 +1,374 @@
+openapi: 3.1.0
+info:
+  title: DepositNet Platform API (concept specification)
+  version: 0.1.0
+  description: |
+    Concept API surface for a reciprocal-deposit network platform, designed to
+    demonstrate fluency with regulated-infrastructure API design (mTLS, idempotency,
+    audit, insurance ceiling math). Category research artifact — not affiliated
+    with any operating company.
+
+servers:
+  - url: https://api.depositnet.example/v1
+    description: Institution-facing API (mTLS required)
+
+security:
+  - mTLS: []
+
+components:
+  securitySchemes:
+    mTLS:
+      type: mutualTLS
+      description: Institutions present a client certificate issued at onboarding.
+    OIDC:
+      type: openIdConnect
+      openIdConnectUrl: https://auth.depositnet.example/.well-known/openid-configuration
+
+  parameters:
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      schema: { type: string, minLength: 16, maxLength: 128 }
+      description: Required on all POSTs. Same key + same body = same result, replayable for 24h.
+
+  schemas:
+    Institution:
+      type: object
+      required: [id, legal_name, type, regulator, core_provider]
+      properties:
+        id: { type: string, format: uuid }
+        legal_name: { type: string, example: "Cascadia Community Bank" }
+        type: { type: string, enum: [bank, credit_union] }
+        regulator: { type: string, enum: [FDIC, NCUA] }
+        core_provider: { type: string, enum: [fiserv, jack_henry, fis, alkami] }
+        nbid_enabled: { type: boolean }
+        cuso_enabled: { type: boolean }
+        term_enabled: { type: boolean }
+
+    Order:
+      type: object
+      required: [institution_id, side, amount_cents]
+      properties:
+        id: { type: string, format: uuid, readOnly: true }
+        institution_id: { type: string, format: uuid }
+        side: { type: string, enum: [place, source] }
+        amount_cents: { type: integer, minimum: 100000000, example: 2500000000 }
+        term_days: { type: integer, minimum: 1, example: 1 }
+        rate_floor_bps: { type: integer, example: 525 }
+        status: { type: string, enum: [open, matched, cancelled, settled], readOnly: true }
+
+    Match:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        place_order_id: { type: string, format: uuid }
+        source_order_id: { type: string, format: uuid }
+        allocation_cents: { type: integer }
+        matched_at: { type: string, format: date-time }
+        counterparty_alias: { type: string, example: "INST-7F2A" }
+
+    Coverage:
+      type: object
+      properties:
+        account_id: { type: string, format: uuid }
+        balance_cents: { type: integer }
+        insured_amount_cents: { type: integer }
+        ceiling_cents: { type: integer, description: "FDIC $250K or up to $15M via CUSO" }
+        gap_cents: { type: integer, description: "balance - insured" }
+        at_risk: { type: boolean }
+
+    IntradayFlow:
+      type: object
+      properties:
+        institution_id: { type: string, format: uuid }
+        as_of: { type: string, format: date-time }
+        net_cents: { type: integer }
+        inflow_cents: { type: integer }
+        outflow_cents: { type: integer }
+        buckets:
+          type: array
+          items:
+            type: object
+            properties:
+              ts: { type: string, format: date-time }
+              net_cents: { type: integer }
+
+    AccountAtRisk:
+      type: object
+      properties:
+        account_id: { type: string, format: uuid }
+        depositor_name: { type: string }
+        balance_cents: { type: integer }
+        insured_amount_cents: { type: integer }
+        gap_cents: { type: integer }
+        suggested_action:
+          type: string
+          enum: [sweep_to_network, split_account, no_action]
+
+    IntegrationHealth:
+      type: object
+      properties:
+        connection_id: { type: string, format: uuid }
+        core_provider: { type: string, enum: [fiserv, jack_henry, fis, alkami] }
+        status: { type: string, enum: [draft, testing, live, degraded] }
+        last_sync_at: { type: string, format: date-time }
+        health_score: { type: integer, minimum: 0, maximum: 100 }
+        open_breaks: { type: integer }
+
+    AuditEvent:
+      type: object
+      properties:
+        id: { type: string, format: uuid }
+        ts: { type: string, format: date-time }
+        actor: { type: string, example: "user:alco@cascadia.bank" }
+        action: { type: string, example: "order.placed" }
+        entity: { type: string, example: "order:7f3a..." }
+        before: { type: object, nullable: true }
+        after: { type: object, nullable: true }
+        regulator_visible: { type: boolean }
+
+    Error:
+      type: object
+      properties:
+        code: { type: string, example: "coverage_ceiling_breach" }
+        message: { type: string }
+        details: { type: object }
+
+paths:
+  /institutions:
+    post:
+      summary: Onboard an institution
+      parameters: [{ $ref: "#/components/parameters/IdempotencyKey" }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/Institution" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Institution" }
+
+  /institutions/{id}:
+    get:
+      summary: Fetch an institution
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Institution" }
+
+  /orders:
+    post:
+      summary: Place an order on the network
+      description: |
+        Consults the Insurance Coverage Service before accepting. Returns 422
+        with `coverage_ceiling_breach` if the order would push any depositor
+        above their insured ceiling.
+      parameters: [{ $ref: "#/components/parameters/IdempotencyKey" }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/Order" }
+            example:
+              institution_id: "b1e2c3d4-0000-0000-0000-000000000001"
+              side: place
+              amount_cents: 2500000000
+              term_days: 1
+              rate_floor_bps: 525
+      responses:
+        "201":
+          description: Order accepted
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Order" }
+        "422":
+          description: Coverage ceiling would be breached
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+    get:
+      summary: List orders for the calling institution
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/Order" }
+
+  /matches/{id}:
+    get:
+      summary: Fetch a match (counterparty anonymized)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Match" }
+
+  /accounts/{id}/coverage:
+    get:
+      summary: Insurance coverage math for an account
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Coverage" }
+
+  /analytics/intraday-flows:
+    get:
+      summary: Intraday net flow for an institution
+      parameters:
+        - name: institution_id
+          in: query
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/IntradayFlow" }
+
+  /analytics/accounts-at-risk:
+    get:
+      summary: Accounts above 80% of their insured ceiling
+      parameters:
+        - name: institution_id
+          in: query
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/AccountAtRisk" }
+
+  /integrations/{core_provider}/connect:
+    post:
+      summary: Begin a core banking integration
+      parameters:
+        - name: core_provider
+          in: path
+          required: true
+          schema: { type: string, enum: [fiserv, jack_henry, fis, alkami] }
+        - $ref: "#/components/parameters/IdempotencyKey"
+      responses:
+        "201":
+          description: Connection draft created; returns wizard token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  connection_id: { type: string, format: uuid }
+                  wizard_url: { type: string, format: uri }
+
+  /integrations/{id}/health:
+    get:
+      summary: Health and recent break count for a connection
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/IntegrationHealth" }
+
+  /webhooks:
+    post:
+      summary: Register an institution-side webhook for match/settlement events
+      parameters: [{ $ref: "#/components/parameters/IdempotencyKey" }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [url, events]
+              properties:
+                url: { type: string, format: uri }
+                events:
+                  type: array
+                  items:
+                    type: string
+                    enum: [order.matched, settlement.confirmed, settlement.broken, coverage.changed]
+      responses:
+        "201": { description: Created }
+
+  /audit:
+    get:
+      summary: Regulator-visible audit export
+      description: |
+        Format and column ordering matter to regulators. Some examiners require CSV
+        with column orderings prescribed in OCC documents older than this API. The
+        larger banks ingest into Parquet-based audit warehouses. JSON is the default
+        for engineers; CSV and Parquet exist because production reality demanded them.
+      parameters:
+        - name: since
+          in: query
+          required: true
+          schema: { type: string, format: date-time }
+        - name: format
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [json, csv, parquet]
+            default: json
+        - name: columns
+          in: query
+          required: false
+          description: |
+            Comma-separated column ordering. When omitted, returns the institution's
+            configured default ordering (settable via the admin module Identity tab).
+            Example: `ts,actor,action,entity,regulator_visible`
+          schema: { type: string }
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: "#/components/schemas/AuditEvent" }
+            text/csv:
+              schema:
+                type: string
+                example: |
+                  ts,actor,action,entity,regulator_visible
+                  2026-04-07T14:32:18Z,api:institution,order.placed,order:7f3a...,true
+            application/vnd.apache.parquet:
+              schema:
+                type: string
+                format: binary

@@ -11,6 +11,7 @@ const caseStudyMap: Record<string, () => Promise<{ default: React.ComponentType 
   fitops: () => import("@/content/case-studies/fitops.mdx"),
   "forge-and-field": () => import("@/content/case-studies/forge-and-field.mdx"),
   "claude-framework": () => import("@/content/case-studies/claude-framework.mdx"),
+  "deposit-networks": () => import("@/content/case-studies/deposit-networks.mdx"),
 }
 
 export async function generateStaticParams() {

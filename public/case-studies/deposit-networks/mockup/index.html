@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=1280" />
+  <title>DepositNet Platform — Concept Console</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <div class="header">
+      <div class="brand">
+        <span class="dot"></span>
+        DepositNet <span class="sub">Platform Console · concept</span>
+      </div>
+      <div class="who">
+        Signed in as
+        <select id="persona" class="persona-select">
+          <option value="trader">Trader · trader@cascadia.bank</option>
+          <option value="controller">Controller · controller@cascadia.bank</option>
+          <option value="cco">CCO · cco@cascadia.bank</option>
+        </select>
+        · Cascadia Community Bank · FDIC
+      </div>
+    </div>
+
+    <div class="surface-switcher">
+      <button class="surface inst active" data-surface="inst">Institution Console</button>
+      <button class="surface admin" data-surface="adminsurface">Network Admin</button>
+    </div>
+
+    <!-- ===== INSTITUTION SURFACE ===== -->
+    <div id="surface-inst" class="surface-pane active">
+
+    <div class="observe-banner">
+      <div>
+        Cascadia Community Bank is in <b>OBSERVE MODE</b> · Day 47 of 90 ·
+        Placement actions are disabled while the team learns the network.
+      </div>
+      <a>Switch to live mode →</a>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" data-tab="admin">Treasury Admin</div>
+      <div class="tab" data-tab="integrations">Integrations</div>
+      <div class="tab" data-tab="market">Network Marketplace</div>
+      <div class="tab" data-tab="cco" style="display:none">Audit Log Viewer</div>
+    </div>
+
+    <!-- TAB A — TREASURY ADMIN -->
+    <div class="tabpanel active" id="tab-admin">
+      <div id="kpis" class="kpis"></div>
+
+      <div class="row">
+        <div class="panel" style="flex: 2">
+          <h2>Intraday Net Flow · last 24h</h2>
+          <div id="spark"></div>
+          <div class="muted" style="margin-top: 4px;">Net cents per 1h bucket. Negative = outflow.</div>
+        </div>
+        <div class="panel" style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+          <h2>Excess Liquidity</h2>
+          <div style="font-size: 26px; font-weight: 600;">$25.0M</div>
+          <div class="muted">Available to sweep to network</div>
+          <button id="sweep-btn" class="btn" style="margin-top: 10px;">Sweep excess to network</button>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Accounts at Risk · above 80% of insured ceiling</h2>
+        <div id="at-risk"></div>
+      </div>
+    </div>
+
+    <!-- TAB B — INTEGRATIONS -->
+    <div class="tabpanel" id="tab-integrations">
+      <div class="panel">
+        <h2>Compliance &amp; Onboarding · Cascadia Community Bank</h2>
+        <div id="compliance-lane"></div>
+        <div class="muted mt">
+          Integrations are not just a code problem. The contracting lifecycle (BSA/AML, MSA, SOC 2) runs in parallel
+          and is the actual gating path for new institutions — typically 6–9 months end-to-end.
+        </div>
+      </div>
+      <div class="panel">
+        <h2>Core Banking Integrations</h2>
+        <div id="int-cards" class="cards"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Add Integration · wizard</h2>
+        <div class="steps">
+          <div class="step done">1 · Auth ✓</div>
+          <div class="step done">2 · Field mapping ✓</div>
+          <div class="step active">3 · Test sync</div>
+          <div class="step">4 · Go live</div>
+        </div>
+        <div class="muted mt">Connecting <b>Alkami</b> for Cascadia Community Bank · 47 of 60 test events synced · 0 mapping errors</div>
+      </div>
+
+      <!-- Tier 2.2: CUSO partner-bank settlement routing -->
+      <div class="panel">
+        <h2>Settlement Routing · CUSO partner-bank topology</h2>
+        <div id="settlement-routing"></div>
+        <div class="muted mt">
+          FDIC banks settle directly on Fedwire. NCUA credit unions route through
+          a partner bank that holds the CUSO master account — the central architectural
+          fact gap #7 missed in Phase 1. <code>internal/settlement/route.go</code> returns
+          the rail directly for banks or via the partner bank for credit unions.
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Open Reconciliation Breaks · platform-wide</h2>
+        <div id="breaks-meta" class="muted" style="margin-bottom:8px"></div>
+        <div id="breaks"></div>
+        <div class="muted mt">Timing breaks usually self-resolve on next sync. Amount and missing breaks open a settlement exception and page on-call if severity = critical.</div>
+      </div>
+    </div>
+
+    <!-- TAB CCO — Audit Log Viewer (read-only persona) -->
+    <div class="tabpanel" id="tab-cco">
+      <div class="panel">
+        <h2>Audit Log · read-only · CCO view</h2>
+        <div class="muted" style="margin-bottom:10px">
+          Compliance officer surface. No placement, no configuration, no admin actions.
+          Every event the institution emitted, regulator-visible, append-only, exportable to OCC CSV format.
+        </div>
+        <div class="muted">Phase 1 stub — full audit log viewer ships in Phase 2 with cursor pagination and the format/columns query params from the OpenAPI spec.</div>
+      </div>
+    </div>
+
+    <!-- TAB C — MARKETPLACE -->
+    <div class="tabpanel" id="tab-market">
+      <!-- Tier 2.1: Marketplace splits into two sub-tabs.
+           Term Funding keeps the CLOB (it's a real order book — banks shop CDs by rate).
+           NBID is the network position graph — the canonical state of reciprocal overnight. -->
+      <div class="subtabs">
+        <div class="subtab active" data-subtab="term">Term Funding · CLOB</div>
+        <div class="subtab" data-subtab="nbid">NBID · Network Position Graph</div>
+      </div>
+
+      <div class="subtabpanel active" id="subtab-term">
+      <div class="row">
+        <div class="panel" style="flex: 2">
+          <h2>Order Book · overnight reciprocal · top of book</h2>
+          <div id="book" class="book"></div>
+          <div class="muted mt">Spread: 2bps · Depth on this page: $143.5M</div>
+        </div>
+        <div class="panel" style="flex: 1">
+          <h2>Term Funding Curve</h2>
+          <div id="curve"></div>
+          <div class="muted">Live network mid · refreshed every 5s</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="panel" style="flex: 1">
+          <h2>Place Order</h2>
+          <div class="form">
+            <div>
+              <label>Side</label>
+              <select><option>Place excess liquidity</option><option>Source funding</option></select>
+            </div>
+            <div>
+              <label>Term</label>
+              <select><option>Overnight (1d)</option><option>7d</option><option>30d</option><option>90d</option></select>
+            </div>
+            <div>
+              <label>Amount ($M)</label>
+              <input id="ord-amount" type="number" value="2.5" min="0" step="0.5" />
+            </div>
+            <div>
+              <label>Rate floor (bps)</label>
+              <input type="number" value="525" />
+            </div>
+            <div class="full">
+              <div id="ord-coverage" class="coverage-preview"></div>
+            </div>
+            <div class="full">
+              <button class="btn">Place order</button>
+              <button class="btn ghost">Save draft</button>
+            </div>
+          </div>
+        </div>
+        <div class="panel" style="flex: 1">
+          <h2>Counterparties · 30d active</h2>
+          <div id="cps"></div>
+          <div class="muted mt">Anonymized for unsettled matches; legal names visible after settlement via <code>GET /v1/matches/{id}/counterparty</code>.</div>
+        </div>
+      </div>
+      </div><!-- /subtab-term -->
+
+      <!-- NBID sub-tab: position graph + netted exposures -->
+      <div class="subtabpanel" id="subtab-nbid">
+        <div class="row">
+          <div class="panel" style="flex: 2">
+            <h2>NBID Network Position · directed exposure graph</h2>
+            <div id="position-graph"></div>
+            <div class="muted mt">
+              Nodes are institutions; arrows are directional cents-of-exposure from placer to source.
+              The graph — not the order book — is the canonical state of NBID. Backed by
+              <code>internal/matching/network_position.go</code>.
+            </div>
+          </div>
+          <div class="panel" style="flex: 1">
+            <h2>Netted Bilateral Positions</h2>
+            <div id="netted-table"></div>
+            <div class="muted mt">End-of-day DvP only moves the netted difference, not the gross.</div>
+          </div>
+        </div>
+      </div><!-- /subtab-nbid -->
+    </div>
+
+    </div><!-- /surface-inst -->
+
+    <!-- ===== ADMIN SURFACE ===== -->
+    <div id="surface-adminsurface" class="surface-pane">
+      <div class="tabs">
+        <div class="tab active" data-admintab="pipeline">Pipeline</div>
+        <div class="tab" data-admintab="netops">NetOps</div>
+        <div class="tab" data-admintab="inspector">Inspector</div>
+        <div class="tab" data-admintab="health">Health</div>
+        <div class="tab" data-admintab="identity">Identity</div>
+      </div>
+
+      <div class="tabpanel active" id="atab-pipeline">
+        <div class="panel">
+          <h2>Institution Pipeline · lead → live</h2>
+          <div id="admin-pipeline"></div>
+          <div class="muted mt">
+            BSA/AML review averages 47 days · MSA redlines 23 days · integration testing 14 days · total 6–9 months end-to-end.
+            Owners: kelly.z (Institution Success), gale.s (Regulatory Affairs), marcus.t (Integration Eng), alice.c (On-call).
+          </div>
+        </div>
+      </div>
+
+      <div class="tabpanel" id="atab-netops">
+        <div class="panel">
+          <h2>Network Operations · break triage queue</h2>
+          <div id="admin-netops"></div>
+          <div class="muted mt">
+            Expected-break classifier (heuristic in v1, ML in Tier 2+) suppresses ~95% of timing breaks.
+            Operator overrides feed back as training data. Force-settle and pause-matching require justification + emit audit events.
+          </div>
+        </div>
+
+        <!-- Tier 2.4: settlement state machine pipeline view -->
+        <div class="panel">
+          <h2>Settlement Pipeline · state machine in flight</h2>
+          <div id="admin-settlement-pipeline"></div>
+          <div class="muted mt">
+            Each match produces one or two settlement_instruction rows; the state machine in
+            <code>internal/settlement/state_machine.go</code> advances them through
+            pending → queued_for_window → sent → confirmed (or → broken / expired).
+            Property tests prove no state goes backwards and expired instructions never send.
+          </div>
+        </div>
+      </div>
+
+      <div class="tabpanel" id="atab-inspector">
+        <div class="panel">
+          <h2>Deposit Inspector · cross-institution transaction search</h2>
+          <div id="admin-inspector"></div>
+          <div class="muted mt">
+            Unified timeline view across order → match → ledger → settlement → audit, with hash chain verification status per row.
+            Exports support JSON, OCC-2017-column-ordered CSV, and Parquet for the larger banks' audit warehouses.
+          </div>
+        </div>
+
+        <!-- Tier 2.3: Merkle commitment ledger integrity -->
+        <div class="panel">
+          <h2>Ledger Integrity · daily Merkle root commitments</h2>
+          <div id="merkle-roots"></div>
+          <div class="muted mt">
+            Per-institution daily Merkle roots over <code>ledger_entry.ref_hash</code>, computed by
+            <code>cmd/merkle-roller</code> overnight, committed to S3 Object Lock and a notary log.
+            Verification recomputes from the live DB and compares to all three sources — DB row,
+            S3 object, notary entry. Any mismatch breaks gap #3's tamper-detection guarantee.
+          </div>
+        </div>
+      </div>
+
+      <div class="tabpanel" id="atab-health">
+        <div class="panel">
+          <h2>Network Health &amp; EGRRCPA Headroom Watch</h2>
+          <div id="admin-health"></div>
+          <div class="muted mt">
+            EGRRCPA headroom = lesser of $5B or 20% of total liabilities, minus current reciprocal balance.
+            Crossing the cap reclassifies the deposits as brokered, changing FDIC assessment treatment.
+            Institutions below 25% headroom trigger proactive outreach from institution success.
+          </div>
+        </div>
+      </div>
+
+      <div class="tabpanel" id="atab-identity">
+        <div id="admin-identity"></div>
+      </div>
+    </div><!-- /surface-adminsurface -->
+  </div><!-- /.app -->
+
+  <!-- Sweep confirmation modal -->
+  <div id="modal" class="modal-bg">
+    <div class="modal">
+      <h3>Sweep $25.0M to network</h3>
+      <div class="muted" style="margin-bottom: 10px;">Cross-institution match preview · subject to confirmation</div>
+      <table>
+        <tr><td>Side</td><td class="num">Place</td></tr>
+        <tr><td>Term</td><td class="num">Overnight</td></tr>
+        <tr><td>Estimated allocation</td><td class="num">$23.5M @ 5.27% (3 counterparties)</td></tr>
+        <tr><td>Residual unmatched</td><td class="num">$1.5M (rests as reservation)</td></tr>
+        <tr><td>Ledger writes</td><td class="num">12 entries across 4 sub-ledgers</td></tr>
+        <tr><td>Network coverage</td><td class="num" style="color: var(--green);">$1.50B / $1.50B target · OK</td></tr>
+        <tr><td>Settlement routing</td><td class="num">2× direct Fedwire · 1× via Cornerstone</td></tr>
+        <tr><td>Cutoff</td><td class="num">Fedwire 18:00 ET · 4h 12m left</td></tr>
+      </table>
+      <div class="actions">
+        <button id="modal-close" class="btn ghost">Cancel</button>
+        <button id="modal-confirm" class="btn">Confirm sweep</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="seed.js"></script>
+  <script src="app.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

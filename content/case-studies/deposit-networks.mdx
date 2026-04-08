@@ -1,0 +1,242 @@
+import { CaseStudyLayout } from "@/components/case-study/CaseStudyLayout"
+import { CaseStudySection } from "@/components/case-study/Section"
+import { FeatureShowcase } from "@/components/case-study/FeatureShowcase"
+import { DeepDive } from "@/components/case-study/DeepDive"
+import { getProjectBySlug } from "@/data/projects"
+
+export default function DepositNetworksCaseStudy() {
+  const project = getProjectBySlug("deposit-networks")
+  if (!project) return null
+
+  return (
+    <CaseStudyLayout project={project}>
+      <CaseStudySection title="Why I wrote this">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          This isn&apos;t a product pitch and it isn&apos;t a grade of any single company. It&apos;s
+          a research artifact I wrote because one corner of fintech infrastructure has quietly
+          become the most interesting regulated-utility wedge I&apos;ve looked at in years, and
+          when I started sketching how I&apos;d build in it, I couldn&apos;t put it down. Everything
+          here is reasoned forward from public materials: company sites, trade-press coverage of
+          the post-SVB deposit flight, the EGRRCPA regulatory text, and two decades of incumbent
+          behavior that&apos;s sitting in plain sight.
+        </p>
+        <p className="text-base leading-relaxed text-muted-foreground">
+          The artifact is organized the way I&apos;d organize a founding-team brief to myself:
+          what is the category, who is in it, why now, what breaks the thesis, and, if I were
+          the engineer on the hook, what would I actually build.
+        </p>
+      </CaseStudySection>
+
+      <CaseStudySection title="The category in one paragraph">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          A community bank or credit union can only insure $250K of a customer&apos;s deposit
+          through FDIC or NCUA. When a large depositor &mdash; a municipality, a law firm escrow
+          account, a small business with payroll float &mdash; walks in with $10M, the institution
+          has three choices: refuse the deposit, push the customer to a money-center bank, or
+          route the excess across a <em>reciprocal deposit network</em> of peer institutions so
+          every slice lands inside someone&apos;s insurance ceiling. That routing market is roughly
+          $2.3T, it is dominated today by a single incumbent that still runs on phone calls,
+          broker relationships, and spreadsheets, and a handful of API-first challengers are now
+          replatforming it the way Plaid replatformed account connectivity and Stripe replatformed
+          card acquiring. That is the category.
+        </p>
+      </CaseStudySection>
+
+      <CaseStudySection title="Who is on the board">
+        <FeatureShowcase
+          features={[
+            {
+              title: "IntraFi (the incumbent)",
+              description:
+                "Formerly Promontory Interfinancial Network. The category creator. Owns the relationships, owns the deposit network, and owns roughly the entire installed base across 3,000+ institutions. Incumbent advantages are real: trust, regulator familiarity, and network depth. Incumbent weaknesses are also real: economic model captures the spread rather than sharing it, integration surface is legacy, and the product cadence reflects an operator that has not had to compete in twenty years.",
+            },
+            {
+              title: "ModernFi (the API-first challenger)",
+              description:
+                "The clearest example of the new wedge: API-first, credit-union-friendly through a CUSO structure that unlocks NCUA-insured institutions, and an economic model that shares yield with the institution rather than capturing it. Publicly backed by serious fintech investors and covered heavily in trade press during the post-SVB deposit flight. This case study is the reason I started writing this artifact, and the concept UI on this page is the way I&apos;d sketch what the backend plumbing has to serve.",
+            },
+            {
+              title: "R&T Deposit Solutions / StoneCastle",
+              description:
+                "Adjacent players with overlapping but distinct positioning: cash management sweeps, insured cash products, and bespoke institutional liquidity services. They are useful to have on the board because they illustrate that the category is not one-product-shaped. The winner doesn't have to take every segment, but it does have to pick its segments on purpose.",
+            },
+            {
+              title: "Core banking vendors (the gatekeepers)",
+              description:
+                "Fiserv, Jack Henry, FIS, and Alkami are not in the category. They are the toll booths you have to pass through to reach it. Every institution customer lives inside one of these cores, and each integration is a distribution unlock that takes months of political and technical work. The speed at which a challenger can ship certified core integrations is, in my reading, the single biggest determinant of who wins.",
+            },
+          ]}
+        />
+      </CaseStudySection>
+
+      <CaseStudySection title="Why now: the structural tailwinds">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          The SVB failure in 2023 was the starting gun. Overnight, every community bank treasurer
+          in the country discovered that uninsured deposit concentration was an existential risk
+          and their CFO wanted a dashboard for it by Monday. The regulatory environment tilted the
+          same direction: EGRRCPA raised the practical reciprocal-deposit ceiling to the lesser of
+          $5B or 20% of liabilities, which turned what used to be a niche product into a headline
+          liquidity lever for mid-sized institutions.
+        </p>
+        <p className="text-base leading-relaxed text-muted-foreground">
+          On top of that, the CUSO structure opens a greenfield: credit unions were historically
+          locked out of the incumbent network&apos;s bank-only plumbing, and a challenger with the
+          right regulatory wrapper gets to compete for a customer base no one was serving. Bank
+          greenfields that large are rare. The window is open right now because the incumbent
+          hasn&apos;t been forced to respond yet. When they do, the challenger has to already be
+          in the ground.
+        </p>
+      </CaseStudySection>
+
+      <CaseStudySection title="What actually breaks the thesis">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          I wanted to write this section carefully, because anyone can list generic risks. These
+          are the three I&apos;d actually lose sleep over as the engineer on the hook.
+        </p>
+        <DeepDive title="1. Network bootstrapping against a twenty-year incumbent">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Reciprocal deposit markets have a cold-start problem in both directions: depositors
+            need counterparty depth to place size, and institutions only commit shelf space if the
+            flow is there. The incumbent has both sides already. A challenger has to either
+            (a) pick a segment the incumbent under-serves and own it first (credit unions are the
+            obvious answer), or (b) compete on economic model to pry incumbent customers into a
+            dual-network posture, then earn primary over time. Neither is fast. Either requires a
+            sales organization that can hold its own against relationship-driven incumbents who
+            have been on a first-name basis with these treasurers for a decade.
+          </p>
+        </DeepDive>
+        <DeepDive title="2. Core banking integration is the distribution problem in disguise">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Every core banking vendor has a certification program, a partner tier structure, and a
+            political process for new integrations. Cutting one takes quarters, not weeks. Cores
+            aren&apos;t a technical problem you can brute-force with better engineering. They are
+            a throughput problem measured in certified launches per year, and that number is the
+            company&apos;s actual growth rate. I&apos;d want to see a challenger treat the core
+            integration pipeline like a revenue function with named owners, not like a back-office
+            engineering task.
+          </p>
+        </DeepDive>
+        <DeepDive title="3. Trust vs. speed: the regulated utility tension">
+          <p className="text-sm leading-relaxed text-muted-foreground">
+            Every regulated-infrastructure startup eventually has to decide whether it&apos;s a
+            startup with a compliance team or a regulated utility with a product team, and the
+            answer has to be the second one. That doesn&apos;t mean slow. It means the trust
+            posture (append-only audit, reconciliation-first design, mTLS on every institution
+            endpoint, deterministic settlement with visible break handling) has to be table-stakes
+            on day one, not on day four hundred. Reconciliation breaks are where regulated
+            infrastructure earns or loses trust, and the first public break is the one everyone
+            will remember.
+          </p>
+        </DeepDive>
+      </CaseStudySection>
+
+      <CaseStudySection title="The customer you have to design for">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          Every system in this space has to survive first contact with a community bank treasurer
+          at 8:00 AM on a Monday. That person is not browsing for features. They have one number
+          they care about, which is their EGRRCPA headroom, and one recurring fear, which is that a
+          settlement break somewhere in the network is going to turn into a regulator call. The
+          product has to make that number glanceable, make breaks self-evident, and make the
+          action-to-resolution path a single click. If an operator has to open a spreadsheet to
+          reconcile anything, the product has already lost the account.
+        </p>
+        <p className="text-base leading-relaxed text-muted-foreground">
+          This is why the concept UI on this page leads with an EGRRCPA headroom KPI and a
+          reconciliation-breaks panel with suppressed-noise counting. Those two widgets are not
+          decoration. They are the reason the tab stays pinned.
+        </p>
+      </CaseStudySection>
+
+      <CaseStudySection title="How I&apos;d build it">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          The artifacts linked below are the engineer-on-the-hook version of this case study: a
+          system architecture, a data model, an institution-facing API specification, and a
+          clickable concept UI that walks the three personas a platform in this space has to
+          serve: treasury operators, controllers, and the platform&apos;s own network admins.
+          None of it is production software. All of it is the output of the exercise &ldquo;if
+          someone handed me a whiteboard tomorrow, what would I draw.&rdquo;
+        </p>
+        <FeatureShowcase
+          features={[
+            {
+              title: "Concept UI: three personas, one console",
+              description:
+                "A static HTML/JS mockup with a persona switcher: Treasury (order placement, coverage preview, counterparty depth), Controller (integrations health, reconciliation breaks with suppressed-noise indicator), and ModernFi Admin (institution pipeline, force-settle and pause-matching actions, network-wide EGRRCPA headroom watch, mTLS certificate lifecycle). The admin surface is deliberate: this is a B2B platform whose internal tooling is its operating leverage, and most candidates never build that screen.",
+            },
+            {
+              title: "System architecture: services and trust boundaries",
+              description:
+                "A component decomposition with explicit boundaries between the public API gateway, the order and matching engines, the ledger, the core-integration adapter layer, the reconciliation subsystem, and the identity plane. The point of the diagram isn&apos;t the boxes. It&apos;s where the trust boundaries sit and what fails when any one of them is compromised.",
+            },
+            {
+              title: "Data model: ledger-first, break-aware",
+              description:
+                "An append-only double-entry ledger with Orders, Matches, SettlementEvents, IntegrationConnections, and reconciliation Breaks as first-class entities. Insurance coverage ceilings and EGRRCPA headroom are modeled as computed views over the ledger, not stored columns, so the regulated numbers are always re-derivable from the source of truth.",
+            },
+            {
+              title: "OpenAPI 3.1 specification: institution-facing surface",
+              description:
+                "A strict API spec for the institution-facing surface: mTLS-authenticated, idempotency-keyed order placement, a coverage-preview endpoint the treasurer&apos;s dashboard can call before committing size, an audit query API for the controller&apos;s reconciliation panel, and a webhook surface for settlement events. Tech stack: Go services behind the gateway, PostgreSQL with strict transactional boundaries, an outbox pattern for every external event.",
+            },
+          ]}
+        />
+        <p className="mt-6 text-base leading-relaxed text-muted-foreground">
+          <strong>Explore the artifacts:</strong>{" "}
+          <a
+            href="/case-studies/deposit-networks/mockup/index.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline-offset-4 hover:underline"
+          >
+            Open the concept UI in a new tab →
+          </a>
+          {" · "}
+          <a
+            href="/case-studies/deposit-networks/api.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline-offset-4 hover:underline"
+          >
+            View the OpenAPI specification →
+          </a>
+        </p>
+        <p className="text-xs leading-relaxed text-muted-foreground/70">
+          The concept UI is a thought experiment, not a redesign of any live product. Numbers and
+          institution names in the mockup are fabricated. It exists to make the three-persona
+          argument concrete enough to talk about.
+        </p>
+      </CaseStudySection>
+
+      <CaseStudySection title="What a winner has to solve to reach IPO velocity">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          If a company in this category is going to become a durable public business rather than a
+          feature acquired by a core vendor, three things have to be true. First, the core
+          integration pipeline has to scale into a repeatable, measurable revenue function,
+          meaning certified launches per quarter, not per year. Second, the trust posture has to be
+          observable from outside the company: published SLAs on settlement, audited breaks
+          disclosure, SOC 2 Type II as a starting point rather than a finish line. Third, the
+          economic model has to stay differentiated from the incumbent even after the incumbent
+          responds, which means the yield-share story has to be structural, not a promotional
+          rate that collapses under competitive pressure.
+        </p>
+        <p className="text-base leading-relaxed text-muted-foreground">
+          None of those are easy. All of them are engineering-adjacent more than sales-adjacent,
+          which is why the companies that win this category will be the ones where the founding
+          engineering team treated compliance surface, integration throughput, and trust posture
+          as first-class product work from day one.
+        </p>
+      </CaseStudySection>
+
+      <CaseStudySection title="Closing note">
+        <p className="text-base leading-relaxed text-muted-foreground">
+          I wrote this because the problem space stuck with me long after I stopped thinking about
+          it on purpose. Regulated financial infrastructure that still runs on phone calls is a
+          rare and short-lived thing to catch in the wild, and the engineers who get to rebuild
+          it are going to ship some of the most consequential quiet work of the decade. If any of
+          this resonates, or lands wrong in an interesting way, I&apos;d genuinely welcome the
+          conversation.
+        </p>
+      </CaseStudySection>
+    </CaseStudyLayout>
+  )
+}
