@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Project Manifest",
+  "description": "Per-folder .project.json — source of truth for the C:/dev repos manifest. Place at the root of every project or group folder. The sync script (portfolio/scripts/sync-projects.ts) reads these and emits C:/dev/.projects.json.",
+  "type": "object",
+  "required": ["id", "name", "kind"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Path/URL to this schema for IDE autocomplete."
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]+$",
+      "description": "Stable, URL-safe identifier. Should not change once set."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable display name."
+    },
+    "kind": {
+      "type": "string",
+      "enum": ["project", "group"],
+      "description": "project = a real repo/codebase. group = a folder containing other projects/subgroups (e.g. Games)."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["app", "game", "tool", "framework", "infra", "content", "personal", "learning"],
+      "description": "What kind of thing this is. Required for projects; optional for groups."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "maintained", "experimental", "archived"],
+      "description": "Lifecycle stage. Active = under development. Maintained = shipped, occasional updates. Experimental = prototype/spike. Archived = frozen."
+    },
+    "isCodeRepo": {
+      "type": "boolean",
+      "description": "True for code repos; false for content/knowledge folders (e.g. Obsidian vault). If omitted, sync auto-derives from .git presence."
+    },
+    "deployment": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["github", "gitea", "vercel", "railway", "lab01", "azure-devops", "local_only"]
+      },
+      "description": "Where this project lives or deploys. Array — a project can have multiple (e.g. github + vercel). If omitted, sync auto-derives from git remote and config files."
+    },
+    "group": {
+      "type": ["string", "null"],
+      "description": "ID of the parent group, or null/omitted if top-level. Must reference an existing group manifest."
+    },
+    "description": {
+      "type": "string",
+      "description": "One-line description. Keep short — long-form lives in README, VISION.md, or portfolio.json."
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Cross-cutting labels (e.g. 'revenue-eligible', 'wip', 'public', 'showcase'). Do not duplicate values covered by type/kind/status."
+    }
+  },
+  "additionalProperties": false,
+  "if": {
+    "properties": { "kind": { "const": "project" } }
+  },
+  "then": {
+    "required": ["id", "name", "kind", "type", "status"]
+  }
+}

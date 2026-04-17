@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "sync": "tsx scripts/sync-portfolio.ts"
+    "sync": "tsx scripts/sync-portfolio.ts",
+    "sync:projects": "tsx scripts/sync-projects.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",

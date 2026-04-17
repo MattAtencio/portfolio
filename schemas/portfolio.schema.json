@@ -74,6 +74,10 @@
     "businessContext": {
       "type": "string"
     },
+    "visionDoc": {
+      "type": "string",
+      "description": "Path (relative to repo root) to a long-form product vision document. Defaults to VISION.md if that file exists. Read by portfolio skills to anchor highlights in the envisioned end-state product, not recent git activity. Not published to the site."
+    },
     "isPublic": {
       "type": "boolean"
     },

@@ -230,38 +230,6 @@ It ships role-based portals for managers, trainers, students, and clients, plus 
     featured: false,
   },
   {
-    slug: "forge-and-field",
-    title: "Forge & Field",
-    tagline:
-      "Craft gear and send heroes on quests",
-    description: `An idle/incremental game where players collect resources, craft weapons and armor, recruit heroes, and send them on expeditions with turn-based combat. Features offline progression, a prestige system, and rotating seasonal events.`,
-    category: "games",
-    status: "active",
-    techStack: [
-      "Next.js",
-      "React 19",
-      "PWA",
-      "CSS Modules",
-    ],
-    liveUrl: "https://forge.mattatencio.com",
-    repoUrl: "https://github.com/MattAtencio/forge-and-field",
-    roadmapUrl: "/projects/forge-and-field/roadmap",
-    images: {
-      thumbnail: "/images/projects/forge-thumb.png",
-      screenshots: [],
-    },
-    highlights: [
-      "Turn-based combat with 4 hero archetypes and gear crafting",
-      "Tiered chest system with Green/Blue/Purple rarity and guaranteed drops",
-      "Offline progression and prestige/rebirth system",
-      "Rotating seasonal events with exclusive rewards",
-    ],
-    isPublic: true,
-    startDate: "2025-01",
-    featured: false,
-    hasCaseStudy: true,
-  },
-  {
     slug: "kids-corner",
     title: "Kids Corner",
     tagline:
@@ -546,7 +514,7 @@ Phased rollout from NAS foundation through AI memory layer, with security polici
     featured: false,
   },
   {
-    slug: "infra",
+    slug: "cloud-infra",
     title: "Infra",
     tagline:
       "Terraform IaC for game sites, DNS, and GitHub repo configuration",
@@ -562,7 +530,7 @@ Cloudflare DNS records and GitHub repository configuration are managed declarati
       "HCL",
     ],
     images: {
-      thumbnail: "/images/projects/infra-thumb.png",
+      thumbnail: "/images/projects/cloud-infra-thumb.png",
       screenshots: [],
     },
     highlights: [
