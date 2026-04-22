@@ -201,6 +201,46 @@ It ships role-based portals for managers, trainers, students, and clients, plus 
     featured: false,
   },
   {
+    slug: "boardroom",
+    title: "Boardroom",
+    tagline:
+      "Make the call. See the truth. Learn the framework.",
+    description: `Boardroom is a mobile-first PWA narrative strategy game built on real-world business case studies — the moments where a single executive decision split a company's future in two. You play as the CEO in the room, you see what they saw, you make the call — then the dossier opens and shows what really happened, with a named framework spotlight so every case hands you a reusable mental model instead of just a score.
+
+The launch build ships with five cases (Netflix 2011, Kodak 1996, Apple 1997, Blockbuster 2004, Nokia 2007), each roughly ten minutes, no grinding and no fail states — just decisions that matter and a frank debrief. Under the hood the game logic lives in pure TypeScript with zero React imports (engine, scoring weights, framework detection, outcome categorization), state runs through Zustand with localStorage persistence, and the UI is a Next.js 16 + React 19 + Tailwind v4 app with an executive gold-on-navy palette, serif body type, and cinematic reveal and debrief screens.`,
+    category: "games",
+    status: "active",
+    techStack: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Zustand",
+      "Tailwind CSS v4",
+      "next-pwa",
+      "PWA / Service Worker",
+    ],
+    liveUrl: "https://boardroom-phi.vercel.app",
+    repoUrl: "https://github.com/MattAtencio/boardroom",
+    images: {
+      thumbnail: "/images/projects/boardroom-thumb.png",
+      screenshots: [],
+    },
+    highlights: [
+      "Five real-world case studies (Netflix 2011, Kodak 1996, Apple 1997, Blockbuster 2004, Nokia 2007) with a historically-grounded decision tree and named framework spotlight per case",
+      "Cinematic reveal + debrief flow: after each decision, the dossier opens comparing player choice against history with a professor / CEO dual commentary",
+      "Outcome categorization (strategic-match / partial-alignment / superior-alternative / strategic-divergence) rewards defensible reasoning over hindsight",
+      "Pure-TypeScript game engine with zero React imports — dispatches actions through a case lifecycle (intro → playing → reveal → debrief → complete)",
+      "Mobile-first PWA with executive gold-on-navy aesthetic, serif body type, installable offline",
+      "Credential tracks surface repeated framework use — players build a personal library of the mental models they actually deployed in play",
+      "Shaped by graphic-designer + art-direction persona reviews during the launch polish pass",
+    ],
+    businessContext:
+      "Distribution-first beta — launched via Vercel with a Name-Your-Own-Price itch.io listing queued. Target audience: MBA-curious operators and product strategists who want case-study-grade decision practice in ten-minute sessions.",
+    isPublic: true,
+    startDate: "2026-03",
+    featured: false,
+  },
+  {
     slug: "flowgrid",
     title: "FlowGrid",
     tagline:
@@ -227,6 +267,41 @@ It ships role-based portals for managers, trainers, students, and clients, plus 
     ],
     isPublic: true,
     startDate: "2025-01",
+    featured: false,
+  },
+  {
+    slug: "forge-and-field",
+    title: "Forge & Field",
+    tagline:
+      "An idle RPG where idle time funds real strategic decisions",
+    description: `A mobile-first PWA idle RPG that rejects clicker-style number inflation in favor of meaningful decisions: what to craft, which heroes to equip, where to send expeditions, and when to prestige. Runs entirely client-side — no backend, no accounts, no loading screens — with offline progress, versioned save migrations, and weekly rotating seasonal content.`,
+    category: "games",
+    status: "active",
+    techStack: [
+      "Next.js",
+      "React 19",
+      "TypeScript",
+      "Turbopack",
+      "PWA",
+      "Cloudflare Pages",
+    ],
+    liveUrl: "https://forge.mattatencio.com",
+    repoUrl: "https://github.com/MattAtencio/forge-and-field",
+    images: {
+      thumbnail: "/images/projects/forge-and-field-thumb.png",
+      screenshots: [],
+    },
+    highlights: [
+      "Single-reducer architecture with ~60 action types — deterministic state transitions make save/load and offline calculation trivial",
+      "Crafting and rarity system with weighted drops (Common 58%, Uncommon 25%, Rare 12%, Epic 5%) and stat-multiplied tiers",
+      "Deterministic turn-based combat engine: speed-sorted turns, cooldown-gated skills, party-wide auras, defense-penetration math",
+      "Multi-axis progression — player levels, hero skill evolution trees, village buildings, and prestige multipliers",
+      "Weekly rotating seasons (Harvest Festival, Iron Age, Golden Market) with exclusive recipes and resource boosts",
+      "Region-based world map with endurance-gated expeditions and loot scaled to player progress",
+      "Installable as a native-feel app on mobile with full offline play",
+    ],
+    isPublic: true,
+    startDate: "2026-02",
     featured: false,
   },
   {
@@ -406,6 +481,47 @@ All games share a core framework (@kids-games/core) with pre-generated TTS audio
     ],
     isPublic: true,
     startDate: "2025-01",
+    featured: false,
+  },
+  {
+    slug: "stackcraft",
+    title: "Stackcraft",
+    tagline:
+      "Design enterprise systems. Learn patterns by building them.",
+    description: `Stackcraft is a mobile-first PWA architecture game where players design enterprise systems on a live canvas and unlock architectural patterns by successfully deploying them against quest constraints. Each quest presents a real-world-shaped brief (traffic profile, compliance requirements, cost ceiling, reliability target); the player composes a system from a tiered node palette, wires sync/async/replication edges, and the validation engine scores the design across four health dimensions — Compliance, Reliability, Performance, and Cost — in priority order.
+
+The canvas is built on React Flow with custom color-coded architecture nodes, tier badges, and live health indicators; the validation engine is a pure-TypeScript pipeline that runs a ConstraintSet against the canvas state and returns a typed ValidationResult. A pattern library of twelve architectural patterns (each with its own \`detect(canvas)\` function) rewards emergent design — if your solution happens to implement the Saga pattern, the library unlocks it automatically. Game state, XP rates, passing thresholds, and rank requirements all live in a single config module.`,
+    category: "games",
+    status: "active",
+    techStack: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "React Flow (@xyflow/react)",
+      "Zustand",
+      "Tailwind CSS v4",
+      "next-pwa",
+      "PWA / Service Worker",
+    ],
+    liveUrl: "https://stackcraft-flame.vercel.app",
+    repoUrl: "https://github.com/MattAtencio/stackcraft",
+    images: {
+      thumbnail: "/images/projects/stackcraft-thumb.png",
+      screenshots: [],
+    },
+    highlights: [
+      "Live architecture canvas powered by React Flow with custom tiered nodes, sync/async/replication edges, and a real-time Validation HUD showing Compliance / Reliability / Performance / Cost health",
+      "Pure-TypeScript validation engine: (CanvasState, ConstraintSet) → ValidationResult — reusable constraint factories, deterministic scoring, and priority-ordered health dimensions",
+      "Pattern library of 12 architectural patterns with automatic `detect(canvas)` unlock — players learn patterns by shipping them, not by reading about them",
+      "Content model: Level → Mission → Quest with constraints, XP rates, and passing thresholds defined in config — new content ships as a single file in `lib/content/`",
+      "Mobile-first PWA: installable, offline-capable, touch-tuned canvas controls, capsule art and itch.io cover shipped",
+      "Ranked progression — XP and rank thresholds gate content access, creating a natural curriculum from starter quests to enterprise-scale design briefs",
+      "Shaped by dev-tool aesthetic + UI design persona reviews during the surface polish pass (custom canvas controls, keyboard shortcuts, iconography pass)",
+    ],
+    businessContext:
+      "Beta distribution via Vercel with itch.io listing staged. Target audience: engineers learning system design, CS students preparing for architecture interviews, and anyone who wants a sandbox where 'the pattern you end up drawing' IS the lesson.",
+    isPublic: true,
+    startDate: "2026-03",
     featured: false,
   },
   {
